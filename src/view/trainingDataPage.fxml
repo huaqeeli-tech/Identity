@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TrainingDataPageController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TrainingDataPageController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #555E62;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -70,16 +70,12 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="190.0" styleClass="toolBarButton" text="اسم الدورة" />
-                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <ComboBox fx:id="coursname" accessibleText="coursCombobox" maxWidth="1.7976931348623157E308" onAction="#selectedCours" prefHeight="40.0" styleClass="appComboBox" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets right="2.0" />
-                                 </HBox.margin>
-                              </ComboBox>
-                           </children>
-                        </HBox>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="190.0" styleClass="toolBarButton" text="اسم الدورة" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="coursname" accessibleText="coursCombobox" maxWidth="1.7976931348623157E308" onAction="#selectedCours" prefHeight="40.0" prefWidth="200.0" styleClass="appComboBox" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                        </ComboBox>
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#addNewCoursName" prefHeight="40.0" prefWidth="17.0" styleClass="toolBarButton">
                            <graphic>
                               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
@@ -106,10 +102,13 @@
                         <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="547.0" prefHeight="45.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="547.0" prefHeight="45.0" prefWidth="300.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="190.0" styleClass="toolBarButton" text="مكان انعقادها" />
-                        <ComboBox fx:id="coursplace" accessibleText="coursCombobox" maxWidth="1.7976931348623157E308" prefHeight="40.0" styleClass="appComboBox" HBox.hgrow="ALWAYS" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="190.0" styleClass="toolBarButton" text="مكان انعقادها" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="coursplace" accessibleText="coursCombobox" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="appComboBox" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin></ComboBox>
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#addNewCoursPlace" prefHeight="40.0" prefWidth="17.0" styleClass="toolBarButton">
                            <graphic>
                               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">

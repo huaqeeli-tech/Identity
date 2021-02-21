@@ -350,4 +350,16 @@ public class DatabaseAccess {
              FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
+    public static void delete(String quiry) throws IOException {
+        Connection con = DatabaseConniction.dbConnector();
+        try {
+            PreparedStatement psm = con.prepareStatement(quiry);
+            Alert alert = FormValidation.confirmationDilog("تاكيد الحذف", "سوف يتم حذف السجل هل تريد المتابعة");
+            if (alert.getResult() == ButtonType.YES) {
+                psm.executeUpdate();
+            }
+        } catch (SQLException ex) {
+             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+    }
 }

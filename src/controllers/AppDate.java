@@ -96,46 +96,75 @@ public class AppDate {
             int deffday = day2 - day1;
             int deffmonth = month2 - month1;
             int deffyear = year2 - year1;
-            String dayText = null, monthText = null, yearText = null;
-            if (deffday == 1) {
-                dayText = "يوم";
-            } else if (deffday == 2) {
-                dayText = "يومان";
-            } else if (deffday <= 10 && deffday > 2) {
-                dayText = "أيام";
-            } else if (deffday > 10) {
-                dayText = "يوما";
-            }
-            if (deffmonth == 1 || deffmonth == 2 ) {
-                monthText = "شهرا";
-            } else if (deffmonth <= 10 && deffmonth > 2) {
-                monthText = "أشهر";
-            } else if (deffmonth > 10) {
-                monthText = "شهرا";
-            }
-            if (deffyear == 1) {
-                yearText = "سنة";
-            } else if (deffyear == 2) {
-                yearText = "سنتان";
-            } else if (deffyear <= 10 && deffmonth > 2) {
-                yearText = "سنوات";
-            } else if (deffyear > 10) {
-                yearText = "سنة";
-            }
-            if (deffday == 0 && deffyear == 0) {
-                System.out.println();
-                value = deffmonth + " " + monthText;
-            } else if (deffday == 0 && deffyear != 0) {
-                value = deffyear + yearText + " و" + deffmonth + " " + monthText;
-            } else if (deffmonth == 0) {
-                value = deffday + " " + dayText;
-            } else if (deffyear <= 0) {
-                value = deffmonth + monthText + " و" + deffday + " " + dayText;
-            } else if (deffyear == 1 || deffyear == 2) {
-                value = yearText + " و" + deffmonth + monthText + " و" + deffday + " " + dayText;
-            } else {
-                value = deffyear + yearText + " و" + deffmonth + monthText + " و" + deffday + " " + dayText;
-            }
+            value = printedText(setDayText(deffday), setMonthText(deffmonth), setYearText(deffyear));
+        }
+        return value;
+    }
+
+    public static String setDayText(int dayes) {
+        String value = null;
+        if (dayes == 1) {
+            value = "يوما واحدا ";
+        } else if (dayes == 2) {
+            value = "يومان ";
+        } else if (dayes <= 10 && dayes > 2) {
+            value = dayes + " " + "أيام";
+        } else if (dayes > 10) {
+            value = dayes + " " + "يوما";
+        } else {
+            value = null;
+        }
+        return value;
+    }
+
+    public static String setMonthText(int monthes) {
+        String value = null;
+        if (monthes == 1) {
+            value = "شهرا ";
+        } else if (monthes == 2) {
+            value = "شهران ";
+        } else if (monthes <= 10 && monthes > 2) {
+            value = monthes + " " + "أشهر";
+        } else if (monthes > 10) {
+            value = monthes + " " + "شهرا";
+        } else {
+            value = null;
+        }
+        return value;
+    }
+
+    public static String setYearText(int years) {
+        String value = null;
+        if (years == 1) {
+            value = "سنة ";
+        } else if (years == 2) {
+            value = "سنتان ";
+        } else if (years <= 10 && years > 2) {
+            value = years + " " + "سنوات";
+        } else if (years > 10) {
+            value = years + " " + "سنة";
+        } else {
+            value = null;
+        }
+        return value;
+    }
+
+    public static String printedText(String day, String month, String year) {
+        String value = null;
+        if (year == null && month == null) {
+            value = day;
+        } else if (year == null && day == null) {
+            value = month;
+        } else if (month == null && day == null) {
+            value = year;
+        } else if (year == null) {
+            value = month + "و" + day;
+        } else if (month == null) {
+            value = year + "و" + day;
+        } else if (day == null) {
+            value = year + "و" + month;
+        } else {
+            value = year + "و" + month + "و" + day;
         }
         return value;
     }

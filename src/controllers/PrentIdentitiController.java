@@ -77,19 +77,47 @@ public class PrentIdentitiController implements Initializable {
 
     private void coursesTableView() {
         try {
-            String query = "SELECT personaldata.MILITARYID,coursnames.CORSNAME FROM personaldata,coursesdata,coursnames"
+            String query = "SELECT personaldata.MILITARYID, personaldata.MILITARYID,personaldata.NAME,personaldata.RANK,personaldata.UNIT,personaldata.PERSONALID,personaldata.PERSONALIMAGE,coursnames.CORSNAME FROM personaldata,coursesdata,coursnames"
                     + " WHERE personaldata.MILITARYID =  '" + milatryId + "' And personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID";
-            String query1 = "SELECT MILITARYID,NAME,RANK,UNIT,PERSONALID,PERSONALIMAGE FROM personaldata"
-                    + " WHERE MILITARYID =  '" + milatryId + "' ";
+//            String query1 = "SELECT MILITARYID,NAME,RANK,UNIT,PERSONALID,PERSONALIMAGE FROM personaldata"
+//                    + " WHERE MILITARYID =  '" + milatryId + "'";
             ResultSet rs = DatabaseAccess.getIdentiti(query);
-            ResultSet rs1 = DatabaseAccess.getIdentiti(query1);
-            if (rs1.next()) {
-                militaryid.setText(rs1.getString("MILITARYID"));
-                name.setText(rs1.getString("NAME"));
-                rank.setText(rs1.getString("RANK"));
-                unit.setText(rs1.getString("UNIT"));
-                idnumber.setText(rs1.getString("PERSONALID"));
-                InputStream is = rs1.getBinaryStream("PERSONALIMAGE");
+//            ResultSet rs1 = DatabaseAccess.getIdentiti(query1);
+//            if (rs1.next()) {
+//                militaryid.setText(rs1.getString("MILITARYID"));
+//                name.setText(rs1.getString("NAME"));
+//                rank.setText(rs1.getString("RANK"));
+//                unit.setText(rs1.getString("UNIT"));
+//                idnumber.setText(rs1.getString("PERSONALID"));
+//                InputStream is = rs1.getBinaryStream("PERSONALIMAGE");
+//                if (is != null) {
+//                    OutputStream os = new FileOutputStream(new File("photo.jpg"));
+//                    byte[] content = new byte[1024];
+//                    int size = 0;
+//                    while ((size = is.read(content)) != -1) {
+//                        os.write(content, 0, size);
+//                    }
+//                    os.close();
+//                    is.close();
+//                    Image imagex = new Image("file:photo.jpg", 130, 160, true, true);
+//                    personalImage.setImage(imagex);
+//                } else {
+//                    personalImage.setImage(null);
+//                }
+//            }
+            int squance = 0;
+            while (rs.next()) {
+                squance++;
+                coursList.add(new CoursesModel(
+                        squance,
+                        rs.getString("coursnames.CORSNAME")
+                ));
+                 militaryid.setText(rs.getString("MILITARYID"));
+                name.setText(rs.getString("NAME"));
+                rank.setText(rs.getString("RANK"));
+                unit.setText(rs.getString("UNIT"));
+                idnumber.setText(rs.getString("PERSONALID"));
+                InputStream is = rs.getBinaryStream("PERSONALIMAGE");
                 if (is != null) {
                     OutputStream os = new FileOutputStream(new File("photo.jpg"));
                     byte[] content = new byte[1024];
@@ -104,18 +132,10 @@ public class PrentIdentitiController implements Initializable {
                 } else {
                     personalImage.setImage(null);
                 }
-            }
-            int squance = 0;
-            while (rs.next()) {
-                squance++;
-                coursList.add(new CoursesModel(
-                        squance,
-                        rs.getString("coursnames.CORSNAME")
-                ));
 
             }
             rs.close();
-            rs1.close();
+//            rs1.close();
         } catch (SQLException | IOException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }

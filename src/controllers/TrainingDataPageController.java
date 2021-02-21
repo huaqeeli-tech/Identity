@@ -282,8 +282,7 @@ public class TrainingDataPageController implements Initializable {
 
     private void coursesTableView() {
         try {
-            ResultSet rs = DatabaseAccess.getData("SELECT personaldata.MILITARYID ,personaldata.RANK,personaldata.NAME,coursnames.CORSNAME,coursesdata.COURSID,coursesdata.COURSIMAGE "
-                    + "FROM personaldata,coursesdata,coursnames "
+            ResultSet rs = DatabaseAccess.getData("SELECT personaldata.MILITARYID ,personaldata.RANK,personaldata.NAME,coursnames.CORSNAME,coursesdata.COURSID FROM personaldata,coursesdata,coursnames "
                     + "WHERE personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID ORDER BY MILITARYID");
             while (rs.next()) {
                 coursList.add(new CoursesModel(
@@ -292,8 +291,8 @@ public class TrainingDataPageController implements Initializable {
                         rs.getString("personaldata.RANK"),
                         rs.getString("coursnames.CORSNAME")
                 ));
-                miltaryID = rs.getString("personaldata.MILITARYID");
-                coursID = rs.getString("coursesdata.COURSID");
+//                miltaryID = rs.getString("personaldata.MILITARYID");
+//                coursID = rs.getString("coursesdata.COURSID");
             }
             rs.close();
         } catch (SQLException | IOException ex) {
@@ -486,7 +485,7 @@ public class TrainingDataPageController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter ext1 = new FileChooser.ExtensionFilter("JPG files(*.jpg)", "*.JPG");
         FileChooser.ExtensionFilter ext2 = new FileChooser.ExtensionFilter("PNG files(*.png)", "*.PNG");
-        FileChooser.ExtensionFilter ext3 = new FileChooser.ExtensionFilter("JPEG‬‬  files(*.jpeg)", "*.JPEG‬‬ ");
+        FileChooser.ExtensionFilter ext3 = new FileChooser.ExtensionFilter("JPEG‬‬  files(*.jpeg)", "*.JPEG‬‬");
         fileChooser.getExtensionFilters().addAll(ext1, ext2, ext3);
         imagefile = fileChooser.showOpenDialog(stage);
         imageUrl.setText(imagefile.getPath());

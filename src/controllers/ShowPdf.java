@@ -18,7 +18,7 @@ public class ShowPdf {
         try {
             if (img != null) {
                 Document document = new Document(img);
-                File f = new File("C:\\trainingApp");
+                File f = new File("C:\\Program Files\\TrainingData\\pdf");
                 f.mkdir();
                 String path = f.getPath() + "\\showImage.pdf";
                 PdfWriter.getInstance(document, new FileOutputStream(path));
