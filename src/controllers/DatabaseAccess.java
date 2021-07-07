@@ -2,15 +2,24 @@ package controllers;
 
 import Validation.FormValidation;
 import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.lowagie.text.pdf.PdfWriter;
 import com.mysql.jdbc.Statement;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javax.swing.JOptionPane;
@@ -42,7 +51,7 @@ public class DatabaseAccess {
             con.close();
             psm.close();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return lastId;
     }
@@ -75,10 +84,11 @@ public class DatabaseAccess {
             psm.close();
             rs.close();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return lastId;
     }
+
     public static com.itextpdf.text.Image getCoursImage(String militaryid, String coursid) {
         com.itextpdf.text.Image image = null;
         try {
@@ -100,6 +110,57 @@ public class DatabaseAccess {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return image;
+    }
+
+    public static void getAllCoursImage(String militaryid) {
+        com.itextpdf.text.Image image = null;
+        ArrayList images = new ArrayList();
+        try {
+            if (militaryid == null) {
+                FormValidation.showAlert(null, "اختر السجل من الجدول", Alert.AlertType.ERROR);
+            } else {
+                ResultSet rs = DatabaseAccess.getData("SELECT COURSIMAGE FROM coursesdata WHERE MILITARYID = '" + militaryid + "'");
+                while (rs.next()) {
+                    images.add(rs.getBytes("COURSIMAGE"));
+                }
+                if (images.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "لا توجد صور");
+                } else {
+                    byte[] scaledInstance = (byte[]) images.get(0);
+                    image = Image.getInstance(scaledInstance);
+                    Document document = new Document(image);
+                    File f = new File("C:\\Program Files\\TrainingData\\pdf");
+                    f.mkdir();
+                    String path = f.getPath() + "\\showImage.pdf";
+                    com.itextpdf.text.pdf.PdfWriter.getInstance(document, new FileOutputStream(path));
+                    document.open();
+                    for (Iterator localIterator = images.iterator(); localIterator.hasNext();) {
+                        Object myimage = localIterator.next();
+                        byte[] scaledInstance1 = (byte[]) myimage;
+                        image = Image.getInstance(scaledInstance1);
+                        document.setPageSize(image);
+                        document.newPage();
+                        image.setAbsolutePosition(0.0F, 0.0F);
+                        document.add(image);
+                    }
+                    document.close();
+                    if (Desktop.isDesktopSupported()) {
+                        try {
+                            File myFile = new File(path);
+                            Desktop.getDesktop().open(myFile);
+                        } catch (IOException ex) {
+                            FormValidation.showAlert("", ex.toString(), Alert.AlertType.ERROR);
+                        }
+                    }
+                }
+                rs.close();
+            }
+        } catch (IOException | SQLException | BadElementException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        } catch (DocumentException ex) {
+            Logger.getLogger(DatabaseAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public static int insert(String tapleName, String fildName, String valueNamber, File imagefile) throws IOException {
@@ -127,7 +188,7 @@ public class DatabaseAccess {
             psm.close();
             rs.close();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return lastId;
     }
@@ -140,7 +201,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(guiry);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -152,7 +213,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(quiry);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -165,7 +226,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(guiry);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -178,7 +239,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(guiry);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -193,10 +254,11 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
+
     public static ResultSet getCourses() throws IOException {
         ResultSet rs = null;
         Connection con = DatabaseConniction.dbConnector();
@@ -207,7 +269,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -220,7 +282,7 @@ public class DatabaseAccess {
             psm = con.prepareStatement(query);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -234,7 +296,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -248,7 +310,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -262,7 +324,7 @@ public class DatabaseAccess {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return rs;
     }
@@ -281,12 +343,13 @@ public class DatabaseAccess {
                 FormValidation.showAlert("", "تم تحديث البيانات", Alert.AlertType.CONFIRMATION);
             }
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
+
     public static void updat(String tapleName, String fildNameAndValue, int[] data, String condition) throws IOException {
         Connection con = DatabaseConniction.dbConnector();
-        String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue +" "+ "WHERE" + " "+ condition;
+        String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue + " " + "WHERE" + " " + condition;
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
             int e = data.length;
@@ -295,7 +358,7 @@ public class DatabaseAccess {
             }
             psm.executeUpdate();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
 
@@ -307,7 +370,7 @@ public class DatabaseAccess {
             psm.executeUpdate();
 
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
 
@@ -328,12 +391,12 @@ public class DatabaseAccess {
             }
             int t = psm.executeUpdate();
             if (t > 0) {
-                 FormValidation.showAlert("", "تم تحديث البيانات", Alert.AlertType.CONFIRMATION);
+                FormValidation.showAlert("", "تم تحديث البيانات", Alert.AlertType.CONFIRMATION);
             }
             con.close();
             psm.close();
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
 
@@ -347,9 +410,10 @@ public class DatabaseAccess {
                 psm.executeUpdate();
             }
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
+
     public static void delete(String quiry) throws IOException {
         Connection con = DatabaseConniction.dbConnector();
         try {
@@ -359,7 +423,7 @@ public class DatabaseAccess {
                 psm.executeUpdate();
             }
         } catch (SQLException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
 }

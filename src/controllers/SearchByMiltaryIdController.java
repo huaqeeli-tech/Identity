@@ -33,7 +33,6 @@ import javafx.util.Callback;
 import modeles.CoursesModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -179,6 +178,7 @@ public class SearchByMiltaryIdController implements Initializable {
                                             FormValidation.showAlert(null, "اختر السجل من الجدول", Alert.AlertType.ERROR);
                                         } else {
                                             pdfimage = DatabaseAccess.getCoursImage(miltaryID, coursID);
+//                                            pdfimage = DatabaseAccess.getCoursImage(miltaryID);
                                             ShowPdf.writePdf(pdfimage);
                                             pdfimage = null;
                                             miltaryID = null;
@@ -294,6 +294,11 @@ public class SearchByMiltaryIdController implements Initializable {
         } catch (IOException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
+    }
+
+    @FXML
+    private void printAllData(ActionEvent event) {
+         DatabaseAccess.getAllCoursImage(milataryid.getText());
     }
 
 }

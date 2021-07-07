@@ -57,6 +57,14 @@ public class PrentIdentitiController implements Initializable {
     private TableColumn<?, ?> coursname_col;
     String milatryId = null;
     ObservableList<CoursesModel> coursList = FXCollections.observableArrayList();
+    @FXML
+    private Label socialStatus;
+    @FXML
+    private Label age;
+    @FXML
+    private Label Length;
+    @FXML
+    private Label weight;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,34 +85,10 @@ public class PrentIdentitiController implements Initializable {
 
     private void coursesTableView() {
         try {
-            String query = "SELECT personaldata.MILITARYID, personaldata.MILITARYID,personaldata.NAME,personaldata.RANK,personaldata.UNIT,personaldata.PERSONALID,personaldata.PERSONALIMAGE,coursnames.CORSNAME FROM personaldata,coursesdata,coursnames"
+            String query = "SELECT personaldata.MILITARYID, personaldata.MILITARYID,personaldata.NAME,personaldata.RANK,personaldata.UNIT,personaldata.PERSONALID,"
+                    + "personaldata.BIRTHDATE,personaldata.SOCIALSTATUS,personaldata.WEIGHT,personaldata.LENGTH,personaldata.PERSONALIMAGE,coursnames.CORSNAME FROM personaldata,coursesdata,coursnames"
                     + " WHERE personaldata.MILITARYID =  '" + milatryId + "' And personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID";
-//            String query1 = "SELECT MILITARYID,NAME,RANK,UNIT,PERSONALID,PERSONALIMAGE FROM personaldata"
-//                    + " WHERE MILITARYID =  '" + milatryId + "'";
             ResultSet rs = DatabaseAccess.getIdentiti(query);
-//            ResultSet rs1 = DatabaseAccess.getIdentiti(query1);
-//            if (rs1.next()) {
-//                militaryid.setText(rs1.getString("MILITARYID"));
-//                name.setText(rs1.getString("NAME"));
-//                rank.setText(rs1.getString("RANK"));
-//                unit.setText(rs1.getString("UNIT"));
-//                idnumber.setText(rs1.getString("PERSONALID"));
-//                InputStream is = rs1.getBinaryStream("PERSONALIMAGE");
-//                if (is != null) {
-//                    OutputStream os = new FileOutputStream(new File("photo.jpg"));
-//                    byte[] content = new byte[1024];
-//                    int size = 0;
-//                    while ((size = is.read(content)) != -1) {
-//                        os.write(content, 0, size);
-//                    }
-//                    os.close();
-//                    is.close();
-//                    Image imagex = new Image("file:photo.jpg", 130, 160, true, true);
-//                    personalImage.setImage(imagex);
-//                } else {
-//                    personalImage.setImage(null);
-//                }
-//            }
             int squance = 0;
             while (rs.next()) {
                 squance++;
@@ -117,6 +101,10 @@ public class PrentIdentitiController implements Initializable {
                 rank.setText(rs.getString("RANK"));
                 unit.setText(rs.getString("UNIT"));
                 idnumber.setText(rs.getString("PERSONALID"));
+                socialStatus.setText(rs.getString("SOCIALSTATUS"));
+                weight.setText(rs.getString("WEIGHT"));
+                Length.setText(rs.getString("LENGTH"));
+                age.setText(AppDate.getAge(rs.getString("BIRTHDATE")));
                 InputStream is = rs.getBinaryStream("PERSONALIMAGE");
                 if (is != null) {
                     OutputStream os = new FileOutputStream(new File("photo.jpg"));
@@ -135,7 +123,6 @@ public class PrentIdentitiController implements Initializable {
 
             }
             rs.close();
-//            rs1.close();
         } catch (SQLException | IOException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
@@ -154,6 +141,7 @@ public class PrentIdentitiController implements Initializable {
             JasperDesign jasperReport = JRXmlLoader.load(reportSrcFile);
             Map parameters = new HashMap();
             parameters.put("militaryid", milatryId);
+            parameters.put("age", age.getText());
 
             JasperReport jrr = JasperCompileManager.compileReport(jasperReport);
             JasperPrint print = JasperFillManager.fillReport(jrr, parameters, con);

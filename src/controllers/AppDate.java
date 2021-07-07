@@ -21,8 +21,10 @@ public class AppDate {
                 month.getItems().addAll(Integer.toString(i));
             }
         }
-        for (int i = 1400; i <= 1490; i++) {
-            year.getItems().addAll(Integer.toString(i));
+        int currentYear = HijriCalendar.getSimpleYear();
+        for (int i = 0; i <= 70; i++) {
+            year.getItems().addAll(Integer.toString(currentYear));
+            currentYear--;
         }
     }
 
@@ -72,6 +74,18 @@ public class AppDate {
             year = parts[0];
         }
         return year;
+    }
+
+    public static String getAge(String date) {
+        String age = null;
+        if (date != null) {
+            int intage = 0;
+            int birthYear = Integer.parseInt(getYear(date));
+            int currentYear = HijriCalendar.getSimpleYear();
+            intage = currentYear - birthYear;
+            age = Integer.toString(intage);
+        }
+        return age;
     }
 
     public static void setSeparateDate(ComboBox day, ComboBox month, ComboBox year, String date) {

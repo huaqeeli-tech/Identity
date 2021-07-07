@@ -50,35 +50,58 @@ public class PersonalDataPageController implements Initializable {
     private TableColumn<?, ?> personalid_col;
     @FXML
     private TableColumn<?, ?> unit_col;
+    @FXML
+    private TableColumn<?, ?> BirthDate_col;
+    @FXML
+    private TableColumn<?, ?> socialStatus_col;
+    @FXML
+    private TableColumn<?, ?> weight_col;
+    @FXML
+    private TableColumn<?, ?> Length_col;
 
     ObservableList<String> rankComboBoxlist = FXCollections.observableArrayList("فريق اول", "فريق", "لواء", "عميد", "عقيد", "مقدم", "رائد", "نقيب", "ملازم أول", "ملازم", "رئيس رقباء", "رقيب أول", "رقيب", "وكيل رقيب", "عريف", "جندي أول", "جندي");
+    ObservableList<String> socialStatuslist = FXCollections.observableArrayList("متزوج", "أعزب");
     ObservableList<PersonalModel> personalList = FXCollections.observableArrayList();
     String selectedMilatryid = null;
     Window stage = null;
     File imagefile = null;
     @FXML
     private TextField imageUrl;
+    @FXML
+    private ComboBox<String> BirthDay;
+    @FXML
+    private ComboBox<String> BirthMonth;
+    @FXML
+    private ComboBox<String> BirthYear;
+    @FXML
+    private ComboBox<String> socialStatus;
+    @FXML
+    private TextField weight;
+    @FXML
+    private TextField Length;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         FillComboBox.fillComboBox(rankComboBoxlist, rank);
+        FillComboBox.fillComboBox(socialStatuslist, socialStatus);
         refreshpersonaltableTableView();
         getTableRow(personaltable);
         getTableRowByInterKey(personaltable);
+        AppDate.setDateValue(BirthDay, BirthMonth, BirthYear);
     }
 
     @FXML
     private void save(ActionEvent event) {
         String tableName = "personaldata";
         String fieldName = null;
-        String[] data = {getMilataryid(), getName(), getRank(), getUnit(), getPersonalid()};
+        String[] data = {getMilataryid(), getName(), getRank(), getUnit(), getPersonalid(), getBirthDate(), getSocialStatus(), getWeight(), getLength()};
         String valuenumbers = null;
         if (imagefile != null) {
-            fieldName = "`MILITARYID`,`NAME`,`RANK`,`UNIT`,`PERSONALID`,`PERSONALIMAGE`";
-            valuenumbers = "?,?,?,?,?,?";
+            fieldName = "`MILITARYID`,`NAME`,`RANK`,`UNIT`,`PERSONALID`,`BIRTHDATE`,`SOCIALSTATUS`,`WEIGHT`,`LENGTH`,`PERSONALIMAGE`";
+            valuenumbers = "?,?,?,?,?,?,?,?,?";
         } else {
-            fieldName = "`MILITARYID`,`NAME`,`RANK`,`UNIT`,`PERSONALID`";
-            valuenumbers = "?,?,?,?,?";
+            fieldName = "`MILITARYID`,`NAME`,`RANK`,`UNIT`,`PERSONALID`,`BIRTHDATE`,`SOCIALSTATUS`,`WEIGHT`,`LENGTH`";
+            valuenumbers = "?,?,?,?,?,?,?,?";
         }
         boolean milataryidState = FormValidation.textFieldNotEmpty(milataryid, "الرجاء ادخال الرقم العسكري");
         boolean milataryidExisting = FormValidation.ifexisting("personaldata", "MILITARYID", "MILITARYID='" + getMilataryid() + "'", "لا يمكن تكرار الرقم العسكري");
@@ -90,7 +113,7 @@ public class PersonalDataPageController implements Initializable {
             try {
                 DatabaseAccess.insert(tableName, fieldName, valuenumbers, data, imagefile);
                 refreshpersonaltableTableView();
-                 clearField(event);
+                clearField(event);
             } catch (IOException ex) {
                 FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
             }
@@ -101,11 +124,11 @@ public class PersonalDataPageController implements Initializable {
     private void edit(ActionEvent event) {
         String tableName = "personaldata";
         String fieldName = null;
-        String[] data = {getMilataryid(), getName(), getRank(), getUnit(), getPersonalid()};
+        String[] data = {getMilataryid(), getName(), getRank(), getUnit(), getPersonalid(), getBirthDate(), getSocialStatus(), getWeight(), getLength()};
         if (imagefile != null) {
-            fieldName = "`MILITARYID`=?,`NAME`=?,`RANK`=?,`UNIT`=?,`PERSONALID`=? ,`PERSONALIMAGE`=?";
+            fieldName = "`MILITARYID`=?,`NAME`=?,`RANK`=?,`UNIT`=?,`PERSONALID`=? ,`BIRTHDATE`=?,`SOCIALSTATUS`=?,`WEIGHT`=?,`LENGTH`=?,`PERSONALIMAGE`=?";
         } else {
-            fieldName = "`MILITARYID`=?,`NAME`=?,`RANK`=?,`UNIT`=?,`PERSONALID`=?";
+            fieldName = "`MILITARYID`=?,`NAME`=?,`RANK`=?,`UNIT`=?,`PERSONALID`=?,`BIRTHDATE`=?,`SOCIALSTATUS`=?,`WEIGHT`=?,`LENGTH`=?";
         }
         boolean milataryidState = FormValidation.textFieldNotEmpty(milataryid, "الرجاء ادخال الرقم العسكري");
         boolean nameState = FormValidation.textFieldNotEmpty(name, "الرجاء ادخال الاسم");
@@ -152,6 +175,26 @@ public class PersonalDataPageController implements Initializable {
         return unit.getText();
     }
 
+    public String getSocialStatus() {
+        return socialStatus.getValue();
+    }
+
+    public String getWeight() {
+        return weight.getText();
+    }
+
+    public String getLength() {
+        return Length.getText();
+    }
+
+    public String getBirthDate() {
+        return AppDate.getDate(BirthDay, BirthMonth, BirthYear);
+    }
+
+    public void setBirthDate(String date) {
+        AppDate.setSeparateDate(BirthDay, BirthMonth, BirthYear, date);
+    }
+
     private void personaltableView() {
         try {
             ResultSet rs = DatabaseAccess.select("personaldata");
@@ -161,7 +204,11 @@ public class PersonalDataPageController implements Initializable {
                         rs.getString("RANK"),
                         rs.getString("NAME"),
                         rs.getString("PERSONALID"),
-                        rs.getString("UNIT")
+                        rs.getString("UNIT"),
+                        rs.getString("BIRTHDATE"),
+                        rs.getString("SOCIALSTATUS"),
+                        rs.getString("WEIGHT"),
+                        rs.getString("LENGTH")
                 ));
             }
             rs.close();
@@ -173,6 +220,10 @@ public class PersonalDataPageController implements Initializable {
         name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         personalid_col.setCellValueFactory(new PropertyValueFactory<>("personalid"));
         unit_col.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        BirthDate_col.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        socialStatus_col.setCellValueFactory(new PropertyValueFactory<>("socialStatus"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        Length_col.setCellValueFactory(new PropertyValueFactory<>("lenght"));
 
         personaltable.setItems(personalList);
     }
@@ -190,6 +241,10 @@ public class PersonalDataPageController implements Initializable {
                     personalid.setText(list.get(0).getPersonalid());
                     unit.setText(list.get(0).getUnit());
                     selectedMilatryid = (list.get(0).getMilitaryId());
+                    setBirthDate(list.get(0).getBirthDate());
+                    socialStatus.setValue(list.get(0).getSocialStatus());
+                    weight.setText(list.get(0).getWeight());
+                    Length.setText(list.get(0).getLenght());
                 }
             }
         });
@@ -202,12 +257,24 @@ public class PersonalDataPageController implements Initializable {
                 ObservableList<PersonalModel> list = FXCollections.observableArrayList();
                 list = table.getSelectionModel().getSelectedItems();
                 if (!list.isEmpty()) {
-                    milataryid.setText(list.get(0).getMilitaryId());
-                    rank.setValue(list.get(0).getRank());
-                    name.setText(list.get(0).getName());
-                    personalid.setText(list.get(0).getPersonalid());
-                    unit.setText(list.get(0).getUnit());
-                    selectedMilatryid = (list.get(0).getMilitaryId());
+                    try {
+                        milataryid.setText(list.get(0).getMilitaryId());
+                        rank.setValue(list.get(0).getRank());
+                        name.setText(list.get(0).getName());
+                        personalid.setText(list.get(0).getPersonalid());
+                        unit.setText(list.get(0).getUnit());
+                        selectedMilatryid = (list.get(0).getMilitaryId());
+                        ResultSet rs = DatabaseAccess.select("personaldata", "MILITARYID= '" + list.get(0).getMilitaryId() + "'");
+                        if (rs.next()) {
+                            setBirthDate(rs.getString("BIRTHDATE"));
+                            socialStatus.setValue(rs.getString("SOCIALSTATUS"));
+                            weight.setText(rs.getString("WEIGHT"));
+                            Length.setText(rs.getString("LENGTH"));
+                        }
+                        rs.close();
+                    } catch (IOException | SQLException ex) {
+                        Logger.getLogger(PersonalDataPageController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
@@ -249,6 +316,10 @@ public class PersonalDataPageController implements Initializable {
                 personalid.setText(rs.getString("PERSONALID"));
                 unit.setText(rs.getString("UNIT"));
                 selectedMilatryid = rs.getString("MILITARYID");
+                setBirthDate(rs.getString("BIRTHDATE"));
+                socialStatus.setValue(rs.getString("SOCIALSTATUS"));
+                weight.setText(rs.getString("WEIGHT"));
+                Length.setText(rs.getString("LENGTH"));
             }
             rs.close();
         } catch (SQLException | IOException ex) {
