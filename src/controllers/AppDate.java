@@ -43,7 +43,7 @@ public class AppDate {
     }
 
     public static String getDate(ComboBox day, ComboBox month, ComboBox year) {
-        return year.getValue().toString() + "/" + month.getValue().toString() + "/" + day.getValue().toString();
+            return year.getValue().toString() + "/" + month.getValue().toString() + "/" + day.getValue().toString();
     }
 
     public static String getDay(String date) {

@@ -82,7 +82,16 @@
                   <HBox alignment="CENTER" layoutX="15.0" layoutY="65.0" prefHeight="45.0" prefWidth="200.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="218.0" styleClass="toolBarButton" text="الوحدة" />
-                        <TextField fx:id="unit" alignment="CENTER" prefHeight="40.0" styleClass="appText" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="unit" accessibleText="coursCombobox" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="appComboBox" HBox.hgrow="ALWAYS" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#addNewUintPage" prefHeight="40.0" prefWidth="17.0" styleClass="toolBarButton">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets left="5.0" right="5.0" />

@@ -42,16 +42,21 @@ public class SearchPageController implements Initializable {
     private TextField IdentityMilatryId;
     ObservableList<String> coursComboBoxlist = FXCollections.observableArrayList();
     ObservableList<String> coursComboBoxlist1 = FXCollections.observableArrayList();
+    ObservableList<String> coursComboBoxlist11 = FXCollections.observableArrayList();
+    ObservableList<String> uintComboBoxlist = FXCollections.observableArrayList();
     @FXML
     private ComboBox<String> coursname1;
     @FXML
     private TextField coursplace1;
+    @FXML
+    private ComboBox<String> coursname11;
+    @FXML
+    private ComboBox<String> uint;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         clearListCombobox();
         refreshListCombobox();
-//        refreshListCombobox1();
     }
 
     @FXML
@@ -113,18 +118,6 @@ public class SearchPageController implements Initializable {
     @FXML
     private void lodIdentityPage(ActionEvent event) {
         try {
-            //        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/view/searchPages/prentIdentiti.fxml"));
-//            Parent root = fxmlLoader.load();
-//            PrentIdentitiController controller = new PrentIdentitiController();
-//            controller = (PrentIdentitiController) fxmlLoader.getController();
-//            controller.setMiltaryId(IdentityMilatryId.getText());
-//            content.setCenter(root);
-//        } catch (IOException ex) {
-//             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
-//             System.out.println(ex);
-//        }
-
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/view/searchPages/prentIdentiti.fxml"));
             Parent root = fxmlLoader.load();
             PrentIdentitiController controller = new PrentIdentitiController();
@@ -135,6 +128,10 @@ public class SearchPageController implements Initializable {
             Logger.getLogger(SearchPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @FXML
+    private void lodSearchByCoursNameAndUintPage(ActionEvent event) {
     }
 
     private ObservableList filleCoursNames(ObservableList list) {
@@ -154,14 +151,28 @@ public class SearchPageController implements Initializable {
         return list;
     }
 
+    private ObservableList filleUint(ObservableList list) {
+        try {
+            ResultSet rs = DatabaseAccess.select("uint");
+            try {
+                while (rs.next()) {
+                    list.add(rs.getString("UINTNAME"));
+                }
+                rs.close();
+            } catch (SQLException ex) {
+                FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            }
+        } catch (IOException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+        return list;
+    }
+
     public void refreshListCombobox() {
         coursname.setItems(filleCoursNames(coursComboBoxlist));
         coursname1.setItems(filleCoursNames(coursComboBoxlist1));
-    }
-
-    public void refreshListCombobox1() {
-//        coursname.setItems(filleCoursNames(coursComboBoxlist));
-        coursname1.setItems(filleCoursNames(coursComboBoxlist1));
+        coursname11.setItems(filleCoursNames(coursComboBoxlist1));
+        uint.setItems(filleUint(uintComboBoxlist));
     }
 
     public void clearListCombobox() {
