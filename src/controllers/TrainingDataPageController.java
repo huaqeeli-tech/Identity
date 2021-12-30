@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -86,10 +89,11 @@ public class TrainingDataPageController implements Initializable {
     Stage stage = new Stage();
     com.itextpdf.text.Image pdfimage = null;
     String userId = null;
+    @FXML
+    private TableColumn<CoursesModel, String> scanimage_col;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        refreshcoursesTableView();
         refreshListCombobox();
         getTableRow(coursesTable);
         getTableRowByInterKey(coursesTable);
@@ -283,7 +287,7 @@ public class TrainingDataPageController implements Initializable {
     private void coursesTableView() {
         try {
             ResultSet rs = DatabaseAccess.getData("SELECT personaldata.MILITARYID ,personaldata.RANK,personaldata.NAME,coursnames.CORSNAME,coursesdata.COURSID FROM personaldata,coursesdata,coursnames "
-                    + "WHERE personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID ORDER BY MILITARYID");
+                    + "WHERE personaldata.MILITARYID = '" + getMilataryid() + "' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID ORDER BY MILITARYID");
             while (rs.next()) {
                 coursList.add(new CoursesModel(
                         rs.getString("personaldata.MILITARYID"),
@@ -309,47 +313,84 @@ public class TrainingDataPageController implements Initializable {
                 = (final TableColumn<CoursesModel, String> param) -> {
                     final TableCell<CoursesModel, String> cell = new TableCell<CoursesModel, String>() {
 
-                        final Button btn = new Button();
+                final Button btn = new Button();
 
-                        @Override
-                        public void updateItem(String item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                setGraphic(null);
-                                setText(null);
-                            } else {
-                                btn.setOnAction(event -> {
-                                    try {
-                                        if (miltaryID == null || coursID == null) {
-                                            FormValidation.showAlert(null, "اختر السجل من الجدول", Alert.AlertType.ERROR);
-                                        } else {
-                                            pdfimage = DatabaseAccess.getCoursImage(miltaryID, coursID);
-                                            ShowPdf.writePdf(pdfimage);
-                                            pdfimage = null;
-                                            miltaryID = null;
-                                            coursID = null;
-                                        }
-                                    } catch (Exception ex) {
-                                        FormValidation.showAlert(null, "لا توجد صورة", Alert.AlertType.ERROR);
-                                    }
-                                });
-                                btn.setStyle("-fx-font-family: 'URW DIN Arabic';"
-                                        + "    -fx-font-size: 10px;"
-                                        + "    -fx-background-color: #769676;"
-                                        + "    -fx-background-radius: 10;"
-                                        + "    -fx-text-fill: #FFFFFF;"
-                                        + "    -fx-effect: dropshadow(three-pass-box,#3C3B3B, 20, 0, 5, 5); ");
-                                Image image = new Image("/images/pdf.png");
-                                ImageView view = new ImageView(image);
-                                btn.setGraphic(view);
-                                setGraphic(btn);
-                                setText(null);
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        btn.setOnAction(event -> {
+                            try {
+                                if (miltaryID == null || coursID == null) {
+                                    FormValidation.showAlert(null, "اختر السجل من الجدول", Alert.AlertType.ERROR);
+                                } else {
+                                    pdfimage = DatabaseAccess.getCoursImage(miltaryID, coursID); 
+                                    ShowPdf.writePdf(pdfimage);
+                                    pdfimage = null;
+                                    miltaryID = null;
+                                    coursID = null;
+                                }
+                            } catch (Exception ex) {
+                                FormValidation.showAlert(null, "لا توجد صورة", Alert.AlertType.ERROR);
                             }
-                        }
-                    };
+                        });
+                        btn.setStyle("-fx-font-family: 'URW DIN Arabic';"
+                                + "    -fx-font-size: 10px;"
+                                + "    -fx-background-color: #769676;"
+                                + "    -fx-background-radius: 10;"
+                                + "    -fx-text-fill: #FFFFFF;"
+                                + "    -fx-effect: dropshadow(three-pass-box,#3C3B3B, 20, 0, 5, 5); ");
+                        Image image = new Image("/images/pdf.png");
+                        ImageView view = new ImageView(image);
+                        btn.setGraphic(view);
+                        setGraphic(btn);
+                        setText(null);
+                    }
+                }
+            };
+                    return cell;
+                };
+        Callback<TableColumn<CoursesModel, String>, TableCell<CoursesModel, String>> cellFactory2
+                = (final TableColumn<CoursesModel, String> param) -> {
+                    final TableCell<CoursesModel, String> cell = new TableCell<CoursesModel, String>() {
+
+                final Button btn = new Button();
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        btn.setOnAction(event -> {
+                            try {
+                                DatabaseAccess.insertImage("coursesdata", "MILITARYID = '" + miltaryID + "' AND COURSID = '" + coursID + "' ");
+                            } catch (IOException ex) {
+                                Logger.getLogger(TrainingDataPageController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        });
+                        btn.setStyle("-fx-font-family: 'URW DIN Arabic';"
+                                + "    -fx-font-size: 10px;"
+                                + "    -fx-background-color: #769676;"
+                                + "    -fx-background-radius: 10;"
+                                + "    -fx-text-fill: #FFFFFF;"
+                                + "    -fx-effect: dropshadow(three-pass-box,#3C3B3B, 20, 0, 5, 5); ");
+                        Image image = new Image("/images/scaner.png");
+                        ImageView view = new ImageView(image);
+                        btn.setGraphic(view);
+                        setGraphic(btn);
+                        setText(null);
+                    }
+                }
+            };
                     return cell;
                 };
         coursImage_col.setCellFactory(cellFactory);
+        scanimage_col.setCellFactory(cellFactory2);
 
         coursesTable.setItems(coursList);
     }
@@ -415,11 +456,6 @@ public class TrainingDataPageController implements Initializable {
                 }
             }
         });
-    }
-
-    private void refreshcoursesTableView() {
-        coursList.clear();
-        coursesTableView();
     }
 
     private ObservableList filleCoursNames(ObservableList list) {
@@ -503,7 +539,7 @@ public class TrainingDataPageController implements Initializable {
 
     @FXML
     private void calculateDuration(ActionEvent event) {
-       
+
         setCoursDuration(AppDate.getDifferenceDate(
                 Integer.parseInt(startDateDay.getValue().toString()),
                 Integer.parseInt(startDateMonth.getValue().toString()),
@@ -512,6 +548,17 @@ public class TrainingDataPageController implements Initializable {
                 Integer.parseInt(endDateMonth.getValue().toString()),
                 Integer.parseInt(endDateYear.getValue().toString())
         ));
+    }
+
+    @FXML
+    private void refreshcoursesTableView(KeyEvent event) {
+        coursList.clear();
+        coursesTableView();
+    }
+
+    private void refreshcoursesTableView() {
+        coursList.clear();
+        coursesTableView();
     }
 
 }

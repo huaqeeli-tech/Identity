@@ -26,9 +26,13 @@ public class AddNewCoursPlaceController implements Initializable {
 
     @FXML
     private VBox content;
+    @FXML
     private TextField newplacename;
+    @FXML
     private TableView<CoursPlaceModel> coursplaceTable;
+    @FXML
     private TableColumn<?, ?> placeid_col;
+    @FXML
     private TableColumn<?, ?> coursplace_col;
     ObservableList<CoursPlaceModel> placeList = FXCollections.observableArrayList();
     String placeid = null;
@@ -55,6 +59,7 @@ public class AddNewCoursPlaceController implements Initializable {
         stage.close();
     }
 
+    @FXML
     private void coursplaceSave(ActionEvent event) {
         String tableName = "placenames";
         String fieldName = "`PLACENAME`";
@@ -72,6 +77,7 @@ public class AddNewCoursPlaceController implements Initializable {
         }
     }
 
+    @FXML
     private void coursplaceEdit(ActionEvent event) {
         String tableName = "placenames";
         String fieldName = "`PLACENAME`=?";
@@ -88,6 +94,7 @@ public class AddNewCoursPlaceController implements Initializable {
         }
     }
 
+    @FXML
     private void coursplaceDelete(ActionEvent event) {
         boolean newcoursidState = FormValidation.notNull(placeid, "الرجاء اختر مكان الانعقاد من الجدول");
         if (newcoursidState) {

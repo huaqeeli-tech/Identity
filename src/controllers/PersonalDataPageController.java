@@ -102,10 +102,10 @@ public class PersonalDataPageController implements Initializable {
         String valuenumbers = null;
         if (imagefile != null) {
             fieldName = "`MILITARYID`,`NAME`,`RANK`,`UNIT`,`PERSONALID`,`BIRTHDATE`,`SOCIALSTATUS`,`WEIGHT`,`LENGTH`,`PERSONALIMAGE`";
-            valuenumbers = "?,?,?,?,?,?,?,?,?";
+            valuenumbers = "?,?,?,?,?,?,?,?,?,?";
         } else {
             fieldName = "`MILITARYID`,`NAME`,`RANK`,`UNIT`,`PERSONALID`,`BIRTHDATE`,`SOCIALSTATUS`,`WEIGHT`,`LENGTH`";
-            valuenumbers = "?,?,?,?,?,?,?,?";
+            valuenumbers = "?,?,?,?,?,?,?,?,?";
         }
         boolean milataryidState = FormValidation.textFieldNotEmpty(milataryid, "الرجاء ادخال الرقم العسكري");
         boolean milataryidExisting = FormValidation.ifexisting("personaldata", "MILITARYID", "MILITARYID='" + getMilataryid() + "'", "لا يمكن تكرار الرقم العسكري");

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="content" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="500.0" prefWidth="797.0" style="-fx-border-color: #4A4A4A; -fx-border-width: 2;" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddNewUintController">
+<VBox fx:id="content" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="500.0" prefWidth="797.0" style="-fx-border-color: #4A4A4A; -fx-border-width: 2;" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddNewUintController">
     <children>
         <HBox alignment="CENTER_RIGHT" layoutX="15.0" layoutY="60.0" prefHeight="37.0" prefWidth="793.0" style="-fx-background-color: #596367;">
             <children>
@@ -39,7 +39,7 @@
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="218.0" styleClass="toolBarButton" text="اسم الوحدة" />
                 <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <TextField fx:id="uintName" prefHeight="40.0" styleClass="appText" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="uintName" onAction="#saveData" prefHeight="40.0" styleClass="appText" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
             </children>

@@ -163,46 +163,46 @@ public class SearchByMiltaryIdController implements Initializable {
                 = (final TableColumn<CoursesModel, String> param) -> {
                     final TableCell<CoursesModel, String> cell = new TableCell<CoursesModel, String>() {
 
-                        final Button btn = new Button();
+                final Button btn = new Button();
 
-                        @Override
-                        public void updateItem(String item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                setGraphic(null);
-                                setText(null);
-                            } else {
-                                btn.setOnAction(event -> {
-                                    try {
-                                        if (miltaryID == null || coursID == null) {
-                                            FormValidation.showAlert(null, "اختر السجل من الجدول", Alert.AlertType.ERROR);
-                                        } else {
-                                            pdfimage = DatabaseAccess.getCoursImage(miltaryID, coursID);
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        btn.setOnAction(event -> {
+                            try {
+                                if (miltaryID == null || coursID == null) {
+                                    FormValidation.showAlert(null, "اختر السجل من الجدول", Alert.AlertType.ERROR);
+                                } else {
+                                    pdfimage = DatabaseAccess.getCoursImage(miltaryID, coursID);
 //                                            pdfimage = DatabaseAccess.getCoursImage(miltaryID);
-                                            ShowPdf.writePdf(pdfimage);
-                                            pdfimage = null;
-                                            miltaryID = null;
-                                            coursID = null;
-                                        }
-                                    } catch (Exception ex) {
-                                        FormValidation.showAlert(null, "لا توجد صورة", Alert.AlertType.ERROR);
-                                    }
-                                });
-                                btn.setStyle("-fx-font-family: 'URW DIN Arabic';"
-                                        + "    -fx-font-size: 10px;"
-                                        + "    -fx-background-color: #769676;"
-                                        + "    -fx-background-radius: 10;"
-                                        + "    -fx-text-fill: #FFFFFF;"
-                                        + "    -fx-effect: dropshadow(three-pass-box,#3C3B3B, 20, 0, 5, 5); ");
-                                Image image = new Image("/images/pdf.png");
-                                ImageView view = new ImageView(image);
-                                btn.setGraphic(view);
-                                setGraphic(btn);
-                                setText(null);
+                                    ShowPdf.writePdf(pdfimage);
+                                    pdfimage = null;
+                                    miltaryID = null;
+                                    coursID = null;
+                                }
+                            } catch (Exception ex) {
+                                FormValidation.showAlert(null, "لا توجد صورة", Alert.AlertType.ERROR);
                             }
+                        });
+                        btn.setStyle("-fx-font-family: 'URW DIN Arabic';"
+                                + "    -fx-font-size: 10px;"
+                                + "    -fx-background-color: #769676;"
+                                + "    -fx-background-radius: 10;"
+                                + "    -fx-text-fill: #FFFFFF;"
+                                + "    -fx-effect: dropshadow(three-pass-box,#3C3B3B, 20, 0, 5, 5); ");
+                        Image image = new Image("/images/pdf.png");
+                        ImageView view = new ImageView(image);
+                        btn.setGraphic(view);
+                        setGraphic(btn);
+                        setText(null);
+                    }
 
-                        }
-                    };
+                }
+            };
                     return cell;
                 };
         image_col.setCellFactory(cellFactory);
@@ -298,7 +298,7 @@ public class SearchByMiltaryIdController implements Initializable {
 
     @FXML
     private void printAllData(ActionEvent event) {
-         DatabaseAccess.getAllCoursImage(milataryid.getText());
+        DatabaseAccess.getAllCoursImage(milataryid.getText());
     }
 
 }

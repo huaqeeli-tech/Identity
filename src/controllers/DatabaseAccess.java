@@ -1,17 +1,23 @@
 package controllers;
 
 import Validation.FormValidation;
+import com.asprise.imaging.core.Imaging;
+import com.asprise.imaging.core.Request;
+import com.asprise.imaging.core.Result;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
-import com.lowagie.text.pdf.PdfWriter;
 import com.mysql.jdbc.Statement;
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class DatabaseAccess {
@@ -110,6 +117,29 @@ public class DatabaseAccess {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return image;
+    }
+
+    public static byte[] getCoursPDF(String militaryid, String coursid) {
+        InputStream image = null;
+        byte[] pdfByte = null;
+        try {
+            if (militaryid == null || coursid == null) {
+                FormValidation.showAlert(null, "اختر السجل من الجدول", Alert.AlertType.ERROR);
+            } else {
+                ResultSet rs = DatabaseAccess.getData("SELECT COURSIMAGE FROM coursesdata WHERE MILITARYID = '" + militaryid + "'AND COURSID = '" + coursid + "'");
+                if (rs.next()) {
+                    image = rs.getBinaryStream("COURSIMAGE");
+                    pdfByte = new byte[image.available()];
+                    image.read(pdfByte);
+                } else {
+                    FormValidation.showAlert(null, "لا توجد صورة ", Alert.AlertType.ERROR);
+                }
+                rs.close();
+            }
+        } catch (IOException | SQLException ex) {
+            FormValidation.showAlert(null, "لا توجد صورة ", Alert.AlertType.ERROR);
+        }
+        return pdfByte;
     }
 
     public static void getAllCoursImage(String militaryid) {
@@ -329,6 +359,33 @@ public class DatabaseAccess {
         return rs;
     }
 
+    public static ResultSet getDatabyCoursesPlaceAndUint(String uint, String coursid) throws IOException {
+        ResultSet rs = null;
+        Connection con = DatabaseConniction.dbConnector();
+        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursnames.CORSNAME,coursesdata.COURSPLASE FROM personaldata,coursesdata,coursnames "
+                + "WHERE coursesdata.COURSID = '" + coursid + "' AND personaldata.UNIT = '" + uint + "' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID";
+        try {
+            PreparedStatement psm = con.prepareStatement(query);
+            rs = psm.executeQuery();
+        } catch (SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+        return rs;
+    }
+
+    public static ResultSet getDatabyUint(String uint) throws IOException {
+        ResultSet rs = null;
+        Connection con = DatabaseConniction.dbConnector();
+        String query = "SELECT MILITARYID FROM personaldata WHERE  personaldata.UNIT = '" + uint + "' ";
+        try {
+            PreparedStatement psm = con.prepareStatement(query);
+            rs = psm.executeQuery();
+        } catch (SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+        return rs;
+    }
+
     public static void updat(String tapleName, String fildNameAndValue, String[] data, String condition) throws IOException {
         Connection con = DatabaseConniction.dbConnector();
         String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue + "WHERE" + " " + condition;
@@ -423,6 +480,45 @@ public class DatabaseAccess {
                 psm.executeUpdate();
             }
         } catch (SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static void insertImage(String tapleName, String condition) throws IOException {
+        try {
+            Imaging imaging = new Imaging("arshef", 0);
+            String path = config.getImagePath();
+            Result result = imaging.scan(Request.fromJson(
+                    "{"
+                    + "\"output_settings\" : [ {"
+                    + "  \"type\" : \"save\","
+                    + "  \"format\" : \"png\","
+                    + "  \"save_path\" : \"" + path + "\\\\${TMS}${EXT}\""
+                    + "} ]"
+                    + "}"), "select", false, false);
+
+            BufferedImage imgefile = result.getImage(0);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(imgefile, "png", baos);
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+            Connection con = DatabaseConniction.dbConnector();
+            String quiry = "UPDATE " + tapleName + " SET `COURSIMAGE` =? WHERE " + " " + condition;
+            try {
+                PreparedStatement psm = con.prepareStatement(quiry);
+                psm.setBlob(1, is);
+                int t = psm.executeUpdate();
+                if (t > 0) {
+                } else {
+                    FormValidation.showAlert(null, "حدث خطاء في عملية الحفظ الرجاء المحاولة مرة اخرى", Alert.AlertType.ERROR);
+                }
+                con.close();
+                psm.close();
+                is.close();
+            } catch (SQLException ex) {
+                FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            }
+
+        } catch (IOException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }

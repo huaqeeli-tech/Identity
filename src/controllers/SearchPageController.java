@@ -8,8 +8,11 @@ package controllers;
 import Validation.FormValidation;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +28,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import modeles.CoursesModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import trainingdata.App;
 
 public class SearchPageController implements Initializable {
@@ -52,6 +64,8 @@ public class SearchPageController implements Initializable {
     private ComboBox<String> coursname11;
     @FXML
     private ComboBox<String> uint;
+    @FXML
+    private ComboBox<String> printUint;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -132,6 +146,16 @@ public class SearchPageController implements Initializable {
 
     @FXML
     private void lodSearchByCoursNameAndUintPage(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/view/searchPages/SearchByCoursNameAndUintPage.fxml"));
+            Parent root = fxmlLoader.load();
+            SearchByCoursNameAndUintPageController controller = new SearchByCoursNameAndUintPageController();
+            controller = (SearchByCoursNameAndUintPageController) fxmlLoader.getController();
+            controller.setCuoursId(CoursesModel.getCoursId(coursname11.getValue()), uint.getValue());
+            content.setCenter(root);
+        } catch (IOException | SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
     }
 
     private ObservableList filleCoursNames(ObservableList list) {
@@ -173,11 +197,31 @@ public class SearchPageController implements Initializable {
         coursname1.setItems(filleCoursNames(coursComboBoxlist1));
         coursname11.setItems(filleCoursNames(coursComboBoxlist1));
         uint.setItems(filleUint(uintComboBoxlist));
+        printUint.setItems(filleUint(uintComboBoxlist));
     }
 
     public void clearListCombobox() {
         coursname.getItems().clear();
         coursname1.getItems().clear();
+    }
+
+    @FXML
+    private void printAllDataOfUint(ActionEvent event) {
+        try {
+            String reportSrcFile = "C:\\Program Files\\TrainingData\\reports\\gruopreport.jrxml";
+            Connection con = DatabaseConniction.dbConnector();
+
+            JasperDesign jasperReport = JRXmlLoader.load(reportSrcFile);
+            Map parameters = new HashMap();
+            parameters.put("uintname", printUint.getValue());
+
+            JasperReport jrr = JasperCompileManager.compileReport(jasperReport);
+            JasperPrint print = JasperFillManager.fillReport(jrr, parameters, con);
+//                JasperPrintManager.printReport(print, false);
+            JasperViewer.viewReport(print, false);
+        } catch (IOException | JRException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
     }
 
 }
