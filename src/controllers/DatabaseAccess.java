@@ -320,7 +320,7 @@ public class DatabaseAccess {
     public static ResultSet getDatabyCoursesId(String coursid) throws IOException {
         ResultSet rs = null;
         Connection con = DatabaseConniction.dbConnector();
-        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE FROM personaldata,coursesdata "
+        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE FROM personaldata,coursesdata "
                 + "WHERE coursesdata.COURSID = '" + coursid + "' AND personaldata.MILITARYID = coursesdata.MILITARYID  ";
         try {
             PreparedStatement psm = con.prepareStatement(query);

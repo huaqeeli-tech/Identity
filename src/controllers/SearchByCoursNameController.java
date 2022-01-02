@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,7 +62,7 @@ public class SearchByCoursNameController implements Initializable {
 
     @FXML
     private void printData(ActionEvent event) {
-         try {
+        try {
 //            String reportSrcFile = "C:\\Users\\Administrator\\Documents\\NetBeansProjects\\TrainingData\\src\\reports\\coursByName.jrxml";
             String reportSrcFile = "C:\\Program Files\\TrainingData\\reports\\coursByName.jrxml";
             Connection con = DatabaseConniction.dbConnector();
@@ -83,7 +81,6 @@ public class SearchByCoursNameController implements Initializable {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
-    
 
     @FXML
     private void getExcelSheet(ActionEvent event) {
@@ -96,28 +93,28 @@ public class SearchByCoursNameController implements Initializable {
                 savefile = file.toString();
             }
             ResultSet rs = DatabaseAccess.getDatabyCoursesId(coursId);
-            String[] feild = {"MILITARYID", "RANK", "NAME", "UNIT", "COURSPLASE"};
-            String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "الوحدة", "مكان انعقادها"};
-            String[] coursname = {"اسماء الحاصلين على دورة :",coursName};
+            String[] feild = {"MILITARYID", "RANK", "NAME", "UNIT", "COURSPLASE", "STARTDATE", "ENDDATE"};
+            String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "الوحدة", "مكان انعقادها", "بدايتها", "نهايتها"};
+            String[] coursname = {"اسماء الحاصلين على دورة :", coursName};
             ExporteExcelSheet exporter = new ExporteExcelSheet();
-            ArrayList<Object[]> dataList = exporter.getTableData(rs,feild);
+            ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
             if (dataList != null && dataList.size() > 0) {
                 exporter.ceratHeader(coursname, 0, exporter.setHederStyle());
                 exporter.ceratHeader(titel, 1, exporter.setHederStyle());
-                exporter.ceratContent(dataList,feild, 2, exporter.setContentStyle());
+                exporter.ceratContent(dataList, feild, 2, exporter.setContentStyle());
                 exporter.writeFile(savefile);
             } else {
                 FormValidation.showAlert(null, "There is no data available in the table to export", Alert.AlertType.ERROR);
             }
             rs.close();
         } catch (IOException | SQLException ex) {
-           FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
 
-    void setCuoursId(String coursid,String coursname) {
+    void setCuoursId(String coursid, String coursname) {
         coursId = coursid;
-        coursName=coursname;
+        coursName = coursname;
         refreshcoursesTableView();
     }
 
@@ -135,7 +132,7 @@ public class SearchByCoursNameController implements Initializable {
                 coursList.add(new CoursesModel(
                         squance,
                         rs.getString("personaldata.MILITARYID"),
-                         rs.getString("personaldata.RANK"),
+                        rs.getString("personaldata.RANK"),
                         rs.getString("personaldata.NAME"),
                         rs.getString("personaldata.UNIT"),
                         rs.getString("coursesdata.COURSPLASE")
@@ -144,7 +141,7 @@ public class SearchByCoursNameController implements Initializable {
             }
             rs.close();
         } catch (SQLException | IOException ex) {
-             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         squnce_col.setCellValueFactory(new PropertyValueFactory<>("sequence"));
         militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryId"));
@@ -152,7 +149,7 @@ public class SearchByCoursNameController implements Initializable {
         name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         unit_col.setCellValueFactory(new PropertyValueFactory<>("unit"));
         coursplace_col.setCellValueFactory(new PropertyValueFactory<>("coursplace"));
-        
+
         searchTable.setItems(coursList);
     }
 
