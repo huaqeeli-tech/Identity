@@ -1,11 +1,13 @@
 package controllers;
 
 import Validation.FormValidation;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -19,6 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import modeles.CoursesModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -53,24 +57,26 @@ public class SearchByCoursNameAndUintPageController implements Initializable {
     String coursPlace = null;
     String coursId = null;
     String Uint = null;
+    String coursName = null;
     ObservableList<CoursesModel> coursList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-refreshcoursesTableView();
+        refreshcoursesTableView();
     }
 
     @FXML
     private void printData(ActionEvent event) {
         try {
 //            String reportSrcFile = "C:\\Users\\Administrator\\Documents\\NetBeansProjects\\TrainingData\\src\\reports\\‏‏coursByPlaceAndName.jrxml";
-            String reportSrcFile = "C:\\Program Files\\TrainingData\\reports\\‏‏coursByPlaceAndName.jrxml";
+            String reportSrcFile = "C:\\Program Files\\TrainingData\\reports\\‏‏‏‏coursByUintAndName.jrxml";
             Connection con = DatabaseConniction.dbConnector();
 
             JasperDesign jasperReport = JRXmlLoader.load(reportSrcFile);
             Map parameters = new HashMap();
-            parameters.put("coursPlace", coursPlace);
+            parameters.put("uint", Uint);
             parameters.put("coursId", coursId);
+            parameters.put("coursName", coursName);
             JasperReport jrr = JasperCompileManager.compileReport(jasperReport);
             JasperPrint print = JasperFillManager.fillReport(jrr, parameters, con);
 
@@ -83,11 +89,38 @@ refreshcoursesTableView();
 
     @FXML
     private void getExcelSheet(ActionEvent event) {
+         try {
+            FileChooser fileChooser = new FileChooser();
+            Window stage = null;
+            File file = fileChooser.showSaveDialog(stage);
+            String savefile = null;
+            if (file != null) {
+                savefile = file.toString();
+            }
+            ResultSet rs = DatabaseAccess.getDatabyCoursesIdAndUint(Uint);
+            String[] feild = {"MILITARYID", "RANK", "NAME", "UNIT", "COURSPLASE","CORSNAME", "STARTDATE", "ENDDATE"};
+            String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "الوحدة", "مكان انعقادها","مسمى الدورة", "بدايتها", "نهايتها"};
+            String[] coursname = {"اسماء الحاصلين على دورة :", coursName};
+            ExporteExcelSheet exporter = new ExporteExcelSheet();
+            ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
+            if (dataList != null && dataList.size() > 0) {
+                exporter.ceratHeader(coursname, 0, exporter.setHederStyle());
+                exporter.ceratHeader(titel, 1, exporter.setHederStyle());
+                exporter.ceratContent(dataList, feild, 2, exporter.setContentStyle());
+                exporter.writeFile(savefile);
+            } else {
+                FormValidation.showAlert(null, "There is no data available in the table to export", Alert.AlertType.ERROR);
+            }
+            rs.close();
+        } catch (IOException | SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
     }
 
-    void setCuoursId(String coursid, String uint) {
+    void setCuoursId(String coursid, String uint, String coursname) {
         Uint = uint;
         coursId = coursid;
+        coursName = coursname;
         refreshcoursesTableView();
     }
 
@@ -98,7 +131,7 @@ refreshcoursesTableView();
 
     private void coursesTableView() {
         try {
-            ResultSet rs = DatabaseAccess.getDatabyCoursesPlaceAndUint(Uint, coursId);
+            ResultSet rs = DatabaseAccess.getDatabyCoursesIdAndUint(Uint);
             int squance = 0;
             while (rs.next()) {
                 squance++;
@@ -111,8 +144,8 @@ refreshcoursesTableView();
                         rs.getString("CORSNAME"),
                         rs.getString("COURSPLASE")
                 ));
-                coursname.setText(rs.getString("CORSNAME"));
-                coursplace.setText(rs.getString("UNIT"));
+                //coursname.setText(rs.getString("CORSNAME"));
+                //coursplace.setText(rs.getString("UNIT"));
                 coursPlace = rs.getString("COURSPLASE");
                 Uint = rs.getString("UNIT");
             }

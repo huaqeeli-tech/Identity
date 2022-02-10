@@ -209,6 +209,7 @@ public class FormValidation {
         }
         return state;
     }
+    
     public static boolean ifNotexisting(String tapleName, String fildName, String condition) {
         boolean state = true;
         try {
@@ -224,7 +225,7 @@ public class FormValidation {
             psm.close();
             rs.close();
         } catch (IOException | SQLException ex) {
-            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
+            showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
         return state;
     }

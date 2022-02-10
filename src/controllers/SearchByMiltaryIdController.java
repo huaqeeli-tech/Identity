@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,10 +77,14 @@ public class SearchByMiltaryIdController implements Initializable {
     com.itextpdf.text.Image pdfimage = null;
     String miltaryID = null;
     String coursID = null;
+    String pmilitaryid = null;
+    String pname = null;
+    String prank = null;
+    String punit = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+       // getPersonaldata(milatryId);
     }
 
     public void setMiltaryId(String milataryid) {
@@ -262,35 +268,27 @@ public class SearchByMiltaryIdController implements Initializable {
             if (file != null) {
                 savefile = file.toString();
             }
+
             ResultSet rs = DatabaseAccess.getCourses(milatryId);
-            ResultSet rs1 = DatabaseAccess.select("personaldata", "MILITARYID='" + milatryId + "'");
-            String militaryid = null;
-            String name = null;
-            String rank = null;
-            String unit = null;
-            if (rs1.next()) {
-                militaryid = rs1.getString("MILITARYID");
-                name = rs1.getString("NAME");
-                rank = rs1.getString("RANK");
-                unit = rs1.getString("UNIT");
-            }
-            String[] feild = {"CORSNAME", "COURSNUMBER", "COURSPLASE", "COURSDURATION", "STARTDATE", "ENDDATE", "COURSESTIMATE"};
-            String[] titel = {"اسم الدورة", "رقم الدورة", "مكان انعقادها", "مدتها", "تاريخ بداية الدورة", "تاريخ نهاية الدورة", "التقدير"};
-            String[] personaltitel = {"الرقم العسكري", "الاسم", "الرتبة", "الوحدة"};
-            String[] personaldata = {militaryid, name, rank, unit};
+            String[] feild = {"CORSNAME", "COURSPLASE", "COURSDURATION", "STARTDATE", "ENDDATE", "COURSESTIMATE"};
+            //String[] personalfeild = {"MILITARYID", "NAME", "RANK", "UNIT"};
+            String[] titel = {"اسم الدورة", "مكان انعقادها", "مدتها", "تاريخ بداية الدورة", "تاريخ نهاية الدورة", "التقدير"};
+           // String[] personaltitel = {"الرقم العسكري", "الاسم", "الرتبة", "الوحدة"};
+            //String[] personaldata = {pmilitaryid, pname, prank, punit};
             ExporteExcelSheet exporter = new ExporteExcelSheet();
             ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
+            //ArrayList<Object[]> persondataList = exporter.getTableData(rs, personalfeild);
             if (dataList != null && dataList.size() > 0) {
-                exporter.ceratHeader(personaltitel, 0, exporter.setHederStyle());
-                exporter.ceratHeader(personaldata, 1, exporter.setContentStyle());
-                exporter.ceratHeader(titel, 2, exporter.setHederStyle());
-                exporter.ceratContent(dataList, feild, 3, exporter.setContentStyle());
+               // exporter.ceratHeader(personaltitel, 0, exporter.setHederStyle());
+               // exporter.ceratContent(persondataList,personalfeild, 1, exporter.setContentStyle());
+                exporter.ceratHeader(titel, 0, exporter.setHederStyle());
+                exporter.ceratContent(dataList, feild, 1, exporter.setContentStyle());
                 exporter.writeFile(savefile);
             } else {
                 FormValidation.showAlert(null, "There is no data available in the table to export", Alert.AlertType.ERROR);
             }
             rs.close();
-            rs1.close();
+            //  rs1.close();
         } catch (IOException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
@@ -299,6 +297,22 @@ public class SearchByMiltaryIdController implements Initializable {
     @FXML
     private void printAllData(ActionEvent event) {
         DatabaseAccess.getAllCoursImage(milataryid.getText());
+    }
+
+    private void getPersonaldata(String milataryid) {
+        try {
+            ResultSet rs = DatabaseAccess.select("personaldata", "MILITARYID='" + milataryid + "'");
+            if (rs.next()) {
+                pmilitaryid = rs.getString("MILITARYID");
+                pname = rs.getString("NAME");
+                prank = rs.getString("RANK");
+                punit = rs.getString("UNIT");
+            }
+            rs.close();
+        } catch (IOException | SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+
     }
 
 }

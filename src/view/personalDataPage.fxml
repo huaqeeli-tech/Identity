@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PersonalDataPageController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PersonalDataPageController">
    <children>
       <AnchorPane prefHeight="800.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -145,6 +145,16 @@
                         <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </HBox>
+                  <HBox alignment="CENTER" layoutX="15.0" layoutY="692.0" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="218.0" styleClass="toolBarButton" text="ملف اكسل" />
+                        <TextField fx:id="execlUrl" alignment="CENTER" prefHeight="40.0" styleClass="appText" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#getEexelUrl" prefHeight="40.0" styleClass="toolBarButton" text="...." />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </HBox>
                   <HBox alignment="CENTER" layoutX="15.0" layoutY="460.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #898989;">
                      <children>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" prefHeight="40.0" styleClass="toolBarButton" text="حفظ" HBox.hgrow="ALWAYS">
@@ -158,6 +168,7 @@
                            </HBox.margin>
                         </Button>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" styleClass="toolBarButton" text="حذف" HBox.hgrow="ALWAYS" />
+                        <Button layoutX="379.0" layoutY="15.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateAll" prefHeight="40.0" styleClass="toolBarButton" text="تحديث" />
                      </children>
                      <VBox.margin>
                         <Insets left="5.0" right="5.0" />

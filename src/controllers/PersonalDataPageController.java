@@ -2,10 +2,16 @@ package controllers;
 
 import Validation.FormValidation;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +31,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import modeles.PersonalModel;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import trainingdata.App;
 
 public class PersonalDataPageController implements Initializable {
@@ -81,6 +92,8 @@ public class PersonalDataPageController implements Initializable {
     private TextField weight;
     @FXML
     private TextField Length;
+    @FXML
+    private TextField execlUrl;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -151,12 +164,18 @@ public class PersonalDataPageController implements Initializable {
 
     @FXML
     private void delete(ActionEvent event) {
-        try {
-            DatabaseAccess.delete("personaldata", "MILITARYID = '" + selectedMilatryid + "'");
-            refreshpersonaltableTableView();
-        } catch (IOException ex) {
-            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        boolean milataryidExisting = FormValidation.ifNotexisting("personaldata", "MILITARYID", "MILITARYID='" + getMilataryid() + "'", "لا توجد بيانات للحذف");
+        if (milataryidExisting) {
+            try {
+                DatabaseAccess.delete("personaldata", "MILITARYID = '" + selectedMilatryid + "'");
+                DatabaseAccess.delete("coursesdata", "MILITARYID = '" + selectedMilatryid + "'");
+                refreshpersonaltableTableView();
+                clearField(event);
+            } catch (IOException ex) {
+                FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            }
         }
+
     }
 
     public String getMilataryid() {
@@ -323,7 +342,7 @@ public class PersonalDataPageController implements Initializable {
     private void getPersonalData(ActionEvent event) {
         try {
             ResultSet rs = DatabaseAccess.select("personaldata", "MILITARYID='" + milataryid.getText() + "'");
-            while (rs.next()) {
+            if (rs.next()) {
                 rank.setValue(rs.getString("RANK"));
                 name.setText(rs.getString("NAME"));
                 personalid.setText(rs.getString("PERSONALID"));
@@ -333,6 +352,8 @@ public class PersonalDataPageController implements Initializable {
                 socialStatus.setValue(rs.getString("SOCIALSTATUS"));
                 weight.setText(rs.getString("WEIGHT"));
                 Length.setText(rs.getString("LENGTH"));
+            } else {
+                FormValidation.showAlert(null, "لا توجد بيانات", Alert.AlertType.ERROR);
             }
             rs.close();
         } catch (SQLException | IOException ex) {
@@ -368,6 +389,60 @@ public class PersonalDataPageController implements Initializable {
 
     public void clearListCombobox() {
         unit.getItems().clear();
+    }
+
+    @FXML
+    private void updateAll(ActionEvent event) throws IOException {
+        String filename = "C:\\Users\\y50\\Documents\\formation.xls";
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(getEexelUrl(event));
+            HSSFWorkbook workbook = new HSSFWorkbook(fis);
+            HSSFSheet sheet = workbook.getSheetAt(0);
+            Iterator rows = sheet.rowIterator();
+
+            while (rows.hasNext()) {
+                HSSFRow row = (HSSFRow) rows.next();
+                Iterator cells = row.cellIterator();
+                List data = new ArrayList();
+                while (cells.hasNext()) {
+                    HSSFCell cell = (HSSFCell) cells.next();
+                    cell.setCellType(CellType.STRING);
+                    data.add(cell);
+                }
+                String rank = data.get(0).toString();
+                String militryid = data.get(1).toString();
+                String name = data.get(2).toString();
+                String personalid = data.get(3).toString();
+                String unit = data.get(4).toString();
+                String[] updatdata = {name, rank, unit};
+                String[] insertdata = {militryid, personalid, name, rank, unit};
+                boolean milataryidExisting = FormValidation.ifNotexisting("personaldata", "MILITARYID", "MILITARYID='" + militryid + "'");
+                if (milataryidExisting) {
+                    DatabaseAccess.updat("personaldata", "`NAME`=?,`RANK`=?,`UNIT`=?", updatdata, "MILITARYID='" + militryid + "'");
+                } else {
+                    DatabaseAccess.insert("personaldata", "`MILITARYID`,`PERSONALID`,`NAME`,`RANK`,`UNIT`", "?,?,?,?,?", insertdata);
+                }
+            }
+            FormValidation.showAlert(null, "تم تحديث بيانات الهوية", Alert.AlertType.INFORMATION);
+        } catch (IOException e) {
+            FormValidation.showAlert(null, e.toString(), Alert.AlertType.ERROR);
+        } finally {
+            if (fis != null) {
+                fis.close();
+
+            }
+        }
+    }
+
+    @FXML
+    private File getEexelUrl(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter ext1 = new FileChooser.ExtensionFilter("Excel files(*.xls)", "*.XLS");
+        fileChooser.getExtensionFilters().addAll(ext1);
+        File execlfile = fileChooser.showOpenDialog(stage);
+        execlUrl.setText(execlfile.getPath());
+        return execlfile;
     }
 
 }

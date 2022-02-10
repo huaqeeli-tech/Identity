@@ -102,6 +102,8 @@ public class TrainingDataPageController implements Initializable {
         AppDate.setDateValue(endDateDay, endDateMonth, endDateYear);
         AppDate.setCurrentDate(startDateDay, startDateMonth, startDateYear);
         AppDate.setCurrentDate(endDateDay, endDateMonth, endDateYear);
+        new AutoCompleteComboBoxListener<>(coursname);
+        new AutoCompleteComboBoxListener<>(coursplace);
     }
 
     @FXML

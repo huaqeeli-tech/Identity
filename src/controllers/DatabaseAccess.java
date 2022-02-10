@@ -280,7 +280,7 @@ public class DatabaseAccess {
         String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,personaldata.PERSONALID,coursesdata.COURSID,"
                 + "coursnames.CORSNAME,coursesdata.COURSNUMBER,coursesdata.COURSPLASE,coursesdata.COURSDURATION,coursesdata.STARTDATE,coursesdata.ENDDATE,coursesdata.COURSESTIMATE FROM personaldata,coursesdata,coursnames "
                 + "WHERE personaldata.MILITARYID = '" + miliid + "' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID ";
-        try {
+        try {//"CORSNAME", "COURSNUMBER", "COURSPLASE", "COURSDURATION", "STARTDATE", "ENDDATE", "COURSESTIMATE"
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
         } catch (SQLException ex) {
@@ -322,6 +322,34 @@ public class DatabaseAccess {
         Connection con = DatabaseConniction.dbConnector();
         String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE FROM personaldata,coursesdata "
                 + "WHERE coursesdata.COURSID = '" + coursid + "' AND personaldata.MILITARYID = coursesdata.MILITARYID  ";
+        try {
+            PreparedStatement psm = con.prepareStatement(query);
+            rs = psm.executeQuery();
+        } catch (SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+        return rs;
+    }
+    public static ResultSet getDatabyCoursesIdAndUint(String coursid,String uint) throws IOException {
+        ResultSet rs = null;
+        Connection con = DatabaseConniction.dbConnector();
+        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE FROM personaldata,coursesdata "
+                + "WHERE coursesdata.COURSID = '" + coursid + "' AND personaldata.UNIT = '"+uint+"' AND personaldata.MILITARYID = coursesdata.MILITARYID  ";
+        try {
+            PreparedStatement psm = con.prepareStatement(query);
+            rs = psm.executeQuery();
+        } catch (SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+        return rs;
+    }
+  
+    public static ResultSet getDatabyCoursesIdAndUint(String uint) throws IOException {
+        ResultSet rs = null;
+        Connection con = DatabaseConniction.dbConnector();
+        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE, coursnames.CORSNAME FROM personaldata,coursesdata,coursnames "
+                + "WHERE ((coursesdata.COURSID = '1016' OR coursesdata.COURSID = '1015')OR coursesdata.COURSID = '1007' OR coursesdata.COURSID = '1013' OR coursesdata.COURSID = '1122' OR coursesdata.COURSID = '1333')"
+                + "  AND (personaldata.UNIT = '"+uint+"' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursnames.COURSID = coursesdata.COURSID )";
         try {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
@@ -397,7 +425,7 @@ public class DatabaseAccess {
             }
             int t = psm.executeUpdate();
             if (t > 0) {
-                FormValidation.showAlert("", "تم تحديث البيانات", Alert.AlertType.CONFIRMATION);
+               // FormValidation.showAlert("", "تم تحديث البيانات", Alert.AlertType.CONFIRMATION);
             }
         } catch (SQLException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);

@@ -95,7 +95,7 @@ public class SearchByCoursNameController implements Initializable {
             ResultSet rs = DatabaseAccess.getDatabyCoursesId(coursId);
             String[] feild = {"MILITARYID", "RANK", "NAME", "UNIT", "COURSPLASE", "STARTDATE", "ENDDATE"};
             String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "الوحدة", "مكان انعقادها", "بدايتها", "نهايتها"};
-            String[] coursname = {"اسماء الحاصلين على دورة :", coursName};
+            String[] coursname = {"اسماء الحاصلين على دورة ", coursName};
             ExporteExcelSheet exporter = new ExporteExcelSheet();
             ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
             if (dataList != null && dataList.size() > 0) {
