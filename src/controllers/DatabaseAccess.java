@@ -278,8 +278,9 @@ public class DatabaseAccess {
         ResultSet rs = null;
         Connection con = DatabaseConniction.dbConnector();
         String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,personaldata.PERSONALID,coursesdata.COURSID,"
-                + "coursnames.CORSNAME,coursesdata.COURSNUMBER,coursesdata.COURSPLASE,coursesdata.COURSDURATION,coursesdata.STARTDATE,coursesdata.ENDDATE,coursesdata.COURSESTIMATE FROM personaldata,coursesdata,coursnames "
-                + "WHERE personaldata.MILITARYID = '" + miliid + "' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID ";
+                + "coursnames.CORSNAME,coursesdata.COURSNUMBER,coursesdata.COURSPLASE,coursesdata.COURSDURATION,coursesdata.STARTDATE,coursesdata.ENDDATE,"
+                + "coursesdata.COURSESTIMATE FROM personaldata,coursesdata,coursnames "
+                + "WHERE coursesdata.MILITARYID = '" + miliid + "' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID ";
         try {//"CORSNAME", "COURSNUMBER", "COURSPLASE", "COURSDURATION", "STARTDATE", "ENDDATE", "COURSESTIMATE"
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
@@ -333,8 +334,8 @@ public class DatabaseAccess {
     public static ResultSet getDatabyCoursesIdAndUint(String coursid,String uint) throws IOException {
         ResultSet rs = null;
         Connection con = DatabaseConniction.dbConnector();
-        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE FROM personaldata,coursesdata "
-                + "WHERE coursesdata.COURSID = '" + coursid + "' AND personaldata.UNIT = '"+uint+"' AND personaldata.MILITARYID = coursesdata.MILITARYID  ";
+        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE, coursnames.CORSNAME FROM personaldata,coursesdata,coursnames "
+                + "WHERE coursesdata.COURSID = '" + coursid + "' AND personaldata.UNIT = '"+uint+"' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursnames.COURSID = coursesdata.COURSID  ";
         try {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();
@@ -348,8 +349,10 @@ public class DatabaseAccess {
         ResultSet rs = null;
         Connection con = DatabaseConniction.dbConnector();
         String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE, coursnames.CORSNAME FROM personaldata,coursesdata,coursnames "
-                + "WHERE ((coursesdata.COURSID = '1016' OR coursesdata.COURSID = '1015')OR coursesdata.COURSID = '1007' OR coursesdata.COURSID = '1013' OR coursesdata.COURSID = '1122' OR coursesdata.COURSID = '1333')"
-                + "  AND (personaldata.UNIT = '"+uint+"' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursnames.COURSID = coursesdata.COURSID )";
+                + "WHERE personaldata.UNIT = '"+uint+"' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursnames.COURSID = coursesdata.COURSID ";
+//        String query = "SELECT personaldata.MILITARYID,personaldata.NAME,personaldata.RANK ,personaldata.UNIT,coursesdata.COURSPLASE,coursesdata.STARTDATE,coursesdata.ENDDATE, coursnames.CORSNAME FROM personaldata,coursesdata,coursnames "
+//                + "WHERE ((coursesdata.COURSID = '1016' OR coursesdata.COURSID = '1015')OR coursesdata.COURSID = '1007' OR coursesdata.COURSID = '1013' OR coursesdata.COURSID = '1122' OR coursesdata.COURSID = '1333')"
+//                + "  AND (personaldata.UNIT = '"+uint+"' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursnames.COURSID = coursesdata.COURSID )";
         try {
             PreparedStatement psm = con.prepareStatement(query);
             rs = psm.executeQuery();

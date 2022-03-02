@@ -393,7 +393,6 @@ public class PersonalDataPageController implements Initializable {
 
     @FXML
     private void updateAll(ActionEvent event) throws IOException {
-        String filename = "C:\\Users\\y50\\Documents\\formation.xls";
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(getEexelUrl(event));

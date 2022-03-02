@@ -92,19 +92,20 @@ public class SearchByCoursNameAndUintPageController implements Initializable {
          try {
             FileChooser fileChooser = new FileChooser();
             Window stage = null;
+            fileChooser.setInitialFileName( "اسماء الحاصلين على دورة " + coursName + " من" + Uint);
             File file = fileChooser.showSaveDialog(stage);
             String savefile = null;
             if (file != null) {
                 savefile = file.toString();
             }
-            ResultSet rs = DatabaseAccess.getDatabyCoursesIdAndUint(Uint);
-            String[] feild = {"MILITARYID", "RANK", "NAME", "UNIT", "COURSPLASE","CORSNAME", "STARTDATE", "ENDDATE"};
-            String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "الوحدة", "مكان انعقادها","مسمى الدورة", "بدايتها", "نهايتها"};
-            String[] coursname = {"اسماء الحاصلين على دورة :", coursName};
+            ResultSet rs = DatabaseAccess.getDatabyCoursesIdAndUint(coursId , Uint);
+            String[] feild = {"MILITARYID", "RANK", "NAME", "COURSPLASE", "STARTDATE", "ENDDATE"};
+            String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "مكان انعقادها", "بدايتها", "نهايتها"};
+            String[] coursname = {"اسماء الحاصلين على دورة " + coursName+"من"+Uint};
             ExporteExcelSheet exporter = new ExporteExcelSheet();
             ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
             if (dataList != null && dataList.size() > 0) {
-                exporter.ceratHeader(coursname, 0, exporter.setHederStyle());
+                exporter.ceratHeader(coursname, 0, exporter.setContentStyle());
                 exporter.ceratHeader(titel, 1, exporter.setHederStyle());
                 exporter.ceratContent(dataList, feild, 2, exporter.setContentStyle());
                 exporter.writeFile(savefile);
@@ -131,7 +132,7 @@ public class SearchByCoursNameAndUintPageController implements Initializable {
 
     private void coursesTableView() {
         try {
-            ResultSet rs = DatabaseAccess.getDatabyCoursesIdAndUint(Uint);
+            ResultSet rs = DatabaseAccess.getDatabyCoursesIdAndUint(coursId,Uint);
             int squance = 0;
             while (rs.next()) {
                 squance++;

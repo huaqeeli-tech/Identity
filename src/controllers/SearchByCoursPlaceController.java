@@ -69,7 +69,7 @@ public class SearchByCoursPlaceController implements Initializable {
 
             JasperDesign jasperReport = JRXmlLoader.load(reportSrcFile);
             Map parameters = new HashMap();
-            parameters.put("coursPlace", coursPlace);
+            parameters.put("coursPlace",coursPlace);
             JasperReport jrr = JasperCompileManager.compileReport(jasperReport);
             JasperPrint print = JasperFillManager.fillReport(jrr, parameters, con);
 
@@ -85,6 +85,7 @@ public class SearchByCoursPlaceController implements Initializable {
         try {
             FileChooser fileChooser = new FileChooser();
             Window stage = null;
+            fileChooser.setInitialFileName( "اسماء الحاصلين على دورة في "+coursPlace);
             File file = fileChooser.showSaveDialog(stage);
             String savefile = null;
             if (file != null) {

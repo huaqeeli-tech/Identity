@@ -1,5 +1,6 @@
 package controllers;
 
+import Validation.FormValidation;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -51,13 +53,17 @@ public class ExporteExcelSheet {
             while (rs.next()) {
                 Object[] objArray = new Object[feild.length];
                 for (int i = 0; i < feild.length; i++) {
-                    objArray[i] = rs.getString(feild[i]);
+                    if (rs.getString(feild[i]) == null) {
+                        objArray[i] = "---";
+                    } else {
+                        objArray[i] = rs.getString(feild[i]);
+                    }
                 }
                 tableDataList.add(objArray);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ExporteExcelSheet.class.getName()).log(Level.SEVERE, null, ex);
+           FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
 
         return tableDataList;
@@ -115,10 +121,10 @@ public class ExporteExcelSheet {
             FileOutputStream fos = new FileOutputStream(file);
             workBook.write(fos);
             fos.flush();
-        } catch (FileNotFoundException e) {
-            System.out.println("Invalid directory or file not found");
-        } catch (IOException e) {
-            System.out.println("Error occurred while writting excel file to directory");
+        } catch (FileNotFoundException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        } catch (IOException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }
 
@@ -137,10 +143,10 @@ public class ExporteExcelSheet {
                 FileOutputStream fos = new FileOutputStream(file);
                 workBook.write(fos);
                 fos.flush();
-            } catch (FileNotFoundException e) {
-                System.out.println("Invalid directory or file not found");
-            } catch (IOException e) {
-                System.out.println("Error occurred while writting excel file to directory");
+            } catch (FileNotFoundException ex) {
+               FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+            } catch (IOException ex) {
+                FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
             }
         }
     }

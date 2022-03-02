@@ -87,6 +87,7 @@ public class SearchByCoursNameController implements Initializable {
         try {
             FileChooser fileChooser = new FileChooser();
             Window stage = null;
+            fileChooser.setInitialFileName("اسماء الحاصلين على دورة " + coursName);
             File file = fileChooser.showSaveDialog(stage);
             String savefile = null;
             if (file != null) {

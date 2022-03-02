@@ -90,6 +90,7 @@ public class SearchByCoursplaceAndCoursNamePageController implements Initializab
          try {
             FileChooser fileChooser = new FileChooser();
             Window stage = null;
+            fileChooser.setInitialFileName(" الحاصلين على دورة "+coursName);
             File file = fileChooser.showSaveDialog(stage);
             String savefile = null;
             if (file != null) {
