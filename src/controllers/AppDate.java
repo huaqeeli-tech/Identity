@@ -107,7 +107,7 @@ public class AppDate {
         if (year2 < year1) {
             FormValidation.showAlert(null, "ادخل تاريخ صحيح", Alert.AlertType.ERROR);
         } else {
-            int deffday = day2 - day1;
+            int deffday = day2 - day1+1;
             int deffmonth = month2 - month1;
             int deffyear = year2 - year1;
             value = printedText(setDayText(deffday), setMonthText(deffmonth), setYearText(deffyear));

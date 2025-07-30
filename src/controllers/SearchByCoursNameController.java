@@ -96,14 +96,14 @@ public class SearchByCoursNameController implements Initializable {
             ResultSet rs = DatabaseAccess.getDatabyCoursesId(coursId);
             String[] feild = {"MILITARYID", "RANK", "NAME", "UNIT", "COURSPLASE", "STARTDATE", "ENDDATE"};
             String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "الوحدة", "مكان انعقادها", "بدايتها", "نهايتها"};
-            String[] coursname = {"اسماء الحاصلين على دورة ", coursName};
+            String[] coursname = {"اسماء الحاصلين على دورة " +coursName};
             ExporteExcelSheet exporter = new ExporteExcelSheet();
             ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
             if (dataList != null && dataList.size() > 0) {
-                exporter.ceratHeader(coursname, 0, exporter.setHederStyle());
+                exporter.ceratHeader(coursname, 0, exporter.setTitelStyle(feild.length));
                 exporter.ceratHeader(titel, 1, exporter.setHederStyle());
                 exporter.ceratContent(dataList, feild, 2, exporter.setContentStyle());
-                exporter.writeFile(savefile);
+                exporter.writeFile(savefile,feild.length);
             } else {
                 FormValidation.showAlert(null, "There is no data available in the table to export", Alert.AlertType.ERROR);
             }

@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -94,6 +93,7 @@ public class PersonalDataPageController implements Initializable {
     private TextField Length;
     @FXML
     private TextField execlUrl;
+    File execlfile = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -394,36 +394,47 @@ public class PersonalDataPageController implements Initializable {
     @FXML
     private void updateAll(ActionEvent event) throws IOException {
         FileInputStream fis = null;
+        Alert alert = FormValidation.confirmationDilog("تنبيه", "يجب ان يكون ترتيب ملف الاكسل كتالي :" + "\n" + "الرقم العسكري - الرتبة - الاسم - رقم الهوية - الوحدة- التخصص" + "\n" + "هل تريد المتابعة ؟");
         try {
-            fis = new FileInputStream(getEexelUrl(event));
-            HSSFWorkbook workbook = new HSSFWorkbook(fis);
-            HSSFSheet sheet = workbook.getSheetAt(0);
-            Iterator rows = sheet.rowIterator();
+            if (execlfile == null) {
+                FormValidation.showAlert(null, "اختر ملف الاكسل", Alert.AlertType.ERROR);
+            } else {
+                if (alert.getResult() == ButtonType.YES) {
+                    fis = new FileInputStream(execlfile);
+                    HSSFWorkbook workbook = new HSSFWorkbook(fis);
+                    HSSFSheet sheet = workbook.getSheetAt(0);
+                    Iterator rows = sheet.rowIterator();
 
-            while (rows.hasNext()) {
-                HSSFRow row = (HSSFRow) rows.next();
-                Iterator cells = row.cellIterator();
-                List data = new ArrayList();
-                while (cells.hasNext()) {
-                    HSSFCell cell = (HSSFCell) cells.next();
-                    cell.setCellType(CellType.STRING);
-                    data.add(cell);
-                }
-                String rank = data.get(0).toString();
-                String militryid = data.get(1).toString();
-                String name = data.get(2).toString();
-                String personalid = data.get(3).toString();
-                String unit = data.get(4).toString();
-                String[] updatdata = {name, rank, unit};
-                String[] insertdata = {militryid, personalid, name, rank, unit};
-                boolean milataryidExisting = FormValidation.ifNotexisting("personaldata", "MILITARYID", "MILITARYID='" + militryid + "'");
-                if (milataryidExisting) {
-                    DatabaseAccess.updat("personaldata", "`NAME`=?,`RANK`=?,`UNIT`=?", updatdata, "MILITARYID='" + militryid + "'");
-                } else {
-                    DatabaseAccess.insert("personaldata", "`MILITARYID`,`PERSONALID`,`NAME`,`RANK`,`UNIT`", "?,?,?,?,?", insertdata);
+                    while (rows.hasNext()) {
+                        HSSFRow row = (HSSFRow) rows.next();
+                        Iterator cells = row.cellIterator();
+                        List data = new ArrayList();
+                        while (cells.hasNext()) {
+                            HSSFCell cell = (HSSFCell) cells.next();
+                            cell.setCellType(CellType.STRING);
+                            data.add(cell);
+                        }
+                        String militryid = data.get(0).toString();
+                        String rank = data.get(1).toString();
+                        String name = data.get(2).toString();
+                        String personalid = data.get(3).toString();
+                        String unit = data.get(4).toString();
+                        String specialty = data.get(5).toString();
+                        String[] updatdata = {personalid, name, rank, unit, specialty};
+                        String[] insertdata = {militryid, personalid, name, rank, unit, specialty};
+                        if (specialty == null || specialty.equals("")) {
+                            specialty = " ";
+                        }
+                        boolean milataryidExisting = FormValidation.ifNotexisting("personaldata", "MILITARYID", "MILITARYID='" + militryid + "'");
+                        if (milataryidExisting) {
+                            DatabaseAccess.updat("personaldata", "`PERSONALID`=?,`NAME`=?,`RANK`=?,`UNIT`=?,`SPECIALTY`=?", updatdata, "MILITARYID='" + militryid + "'");
+                        } else {
+                            DatabaseAccess.insert("personaldata", "`MILITARYID`,`PERSONALID`,`NAME`,`RANK`,`UNIT`,`SPECIALTY`", "?,?,?,?,?,?", insertdata);
+                        }
+                    }
+                    FormValidation.showAlert(null, "تم تحديث بيانات الهوية", Alert.AlertType.INFORMATION);
                 }
             }
-            FormValidation.showAlert(null, "تم تحديث بيانات الهوية", Alert.AlertType.INFORMATION);
         } catch (IOException e) {
             FormValidation.showAlert(null, e.toString(), Alert.AlertType.ERROR);
         } finally {
@@ -432,6 +443,7 @@ public class PersonalDataPageController implements Initializable {
 
             }
         }
+
     }
 
     @FXML
@@ -439,9 +451,40 @@ public class PersonalDataPageController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter ext1 = new FileChooser.ExtensionFilter("Excel files(*.xls)", "*.XLS");
         fileChooser.getExtensionFilters().addAll(ext1);
-        File execlfile = fileChooser.showOpenDialog(stage);
+        execlfile = fileChooser.showOpenDialog(stage);
         execlUrl.setText(execlfile.getPath());
         return execlfile;
+    }
+
+    @FXML
+    private void getExclPersonalData(ActionEvent event) {
+         try {
+            FileChooser fileChooser = new FileChooser();
+            Window stage = null;
+            fileChooser.setInitialFileName("تشكيل قوة السيف الأجرب لبرنامج الشهادات");
+            File file = fileChooser.showSaveDialog(stage);
+            String savefile = null;
+            if (file != null) {
+                savefile = file.toString();
+            }
+            ResultSet rs = DatabaseAccess.getData("SELECT * FROM personaldata ORDER BY MILITARYID ASC");
+            String[] feild = {"RANK", "MILITARYID", "NAME", "PERSONALID", "UNIT", "SPECIALTY"};
+            String[] titel = {"الرتبة", "الرقم العسكري", "الاسم","رقم الهوية" , "الوحدة", "التخصص"};
+            String[] sheetTitel = {"تشكيل قوة السيف الأجرب لبرنامج الشهادات "};
+            ExporteExcelSheet exporter = new ExporteExcelSheet();
+            ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
+            if (dataList != null && dataList.size() > 0) {
+                exporter.ceratHeader(sheetTitel, 0, exporter.setTitelStyle(feild.length));
+                exporter.ceratHeader(titel, 1, exporter.setHederStyle());
+                exporter.ceratContent(dataList, feild, 2, exporter.setContentStyle());
+                exporter.writeFile(savefile,feild.length);
+            } else {
+                FormValidation.showAlert(null, "There is no data available in the table to export", Alert.AlertType.ERROR);
+            }
+            rs.close();
+        } catch (IOException | SQLException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
     }
 
 }

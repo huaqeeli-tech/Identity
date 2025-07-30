@@ -1,12 +1,13 @@
-
 package controllers;
 
 import Validation.FormValidation;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -23,6 +24,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import modeles.CoursesModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -66,6 +69,11 @@ public class SearchPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         clearListCombobox();
         refreshListCombobox();
+        new AutoCompleteComboBoxListener<>(coursname);
+        new AutoCompleteComboBoxListener<>(coursname11);
+        new AutoCompleteComboBoxListener<>(coursname1);
+        new AutoCompleteComboBoxListener<>(uint);
+        new AutoCompleteComboBoxListener<>(printUint);
     }
 
     @FXML
@@ -146,7 +154,7 @@ public class SearchPageController implements Initializable {
             Parent root = fxmlLoader.load();
             SearchByCoursNameAndUintPageController controller = new SearchByCoursNameAndUintPageController();
             controller = (SearchByCoursNameAndUintPageController) fxmlLoader.getController();
-            controller.setCuoursId(CoursesModel.getCoursId(coursname11.getValue()), uint.getValue(),coursname11.getValue());
+            controller.setCuoursId(CoursesModel.getCoursId(coursname11.getValue()), uint.getValue(), coursname11.getValue());
             content.setCenter(root);
         } catch (IOException | SQLException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
@@ -215,6 +223,41 @@ public class SearchPageController implements Initializable {
 //                JasperPrintManager.printReport(print, false);
             JasperViewer.viewReport(print, false);
         } catch (IOException | JRException ex) {
+            FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void getExcelSheet(ActionEvent event) {
+        String specialty = "أمن و حمايه";
+        try {
+            FileChooser fileChooser = new FileChooser();
+            Window stage = null;
+            fileChooser.setInitialFileName("دورات الافراد تخصص امن وحماية");
+            File file = fileChooser.showSaveDialog(stage);
+            String savefile = null;
+            if (file != null) {
+                savefile = file.toString();
+            }       
+            ResultSet rs = DatabaseAccess.getData("SELECT personaldata.MILITARYID, personaldata.NAME,personaldata.PERSONALID,personaldata.RANK,personaldata.SPECIALTY ,personaldata.UNIT,coursnames.CORSNAME, coursesdata.COURSNUMBER,"
+                    + "coursesdata.COURSPLASE,coursesdata.COURSDURATION,coursesdata.STARTDATE,coursesdata.ENDDATE, coursesdata.COURSESTIMATE "
+                    + "FROM personaldata,coursesdata,coursnames "
+                    + "WHERE personaldata.SPECIALTY =  '" + specialty + "' AND personaldata.MILITARYID = coursesdata.MILITARYID AND coursesdata.COURSID = coursnames.COURSID ORDER BY MILITARYID");
+        
+                String[] feild = {"MILITARYID","NAME","RANK","CORSNAME", "COURSPLASE", "COURSDURATION", "STARTDATE", "ENDDATE", "COURSESTIMATE"};
+                String[] titel = {"الرقم العسكري", "الاسم", "الرتبة","اسم الدورة", "مكان انعقادها", "مدتها", "تاريخ بداية الدورة", "تاريخ نهاية الدورة", "التقدير"};
+                ExporteExcelSheet exporter = new ExporteExcelSheet();
+                ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
+                if (dataList != null && dataList.size() > 0) {
+                    exporter.ceratHeader(titel, 0, exporter.setTitelStyle(feild.length));
+                    exporter.ceratContent(dataList, feild, 1, exporter.setContentStyle());
+                    exporter.writeFile(savefile,feild.length);
+                } else {
+                    FormValidation.showAlert(null, "There is no data available in the table to export", Alert.AlertType.ERROR);
+                }
+           
+            rs.close();
+        } catch (IOException | SQLException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }
     }

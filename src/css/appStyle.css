@@ -1,6 +1,6 @@
 .toolBarButton{
     -fx-background-color: #4E4E4E;
-    -fx-background-radius: 0;
+    -fx-background-radius: 15 15 0 0;
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 18px;
     -fx-text-fill: #FFFFFF;
@@ -17,6 +17,27 @@
 .toolBarButton:focus{
     -fx-background-color: #718A76;
     -fx-background-radius: 0;
+}
+
+.actionButton{
+    -fx-background-color: #0A4A0D;
+    -fx-background-radius: 15 15 15 15;
+    -fx-font-family:'URW DIN Arabic';
+    -fx-font-size: 18px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.actionButton:hover{
+    -fx-background-color: #333333;
+    -fx-background-radius: 5 5 5 5;
+}
+.actionButton:pressed{
+    -fx-background-color: #000;
+    -fx-background-radius: 5 5 5 5;
+}
+.actionButton:focus{
+    -fx-background-color: #718A76;
+    -fx-background-radius: 5 5 5 5;
 }
 .searchPageButton{
     -fx-background-color: #7C9185;
@@ -36,7 +57,7 @@
 }
 .headerlabel{
     -fx-background-color: #4E4E4E;
-    -fx-background-radius: 0;
+    -fx-background-radius: 0 15 15 0;
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 18px;
     -fx-text-fill: #FFFFFF;
@@ -182,10 +203,11 @@
     -fx-alignment: center;
 }
 .appComboBox.combo-box-base{
-    -fx-background-color:#fff;
+    -fx-background-color:#4E4E4E;
     -fx-text-fill: #20C9D7;
-    -fx-border-color: #C9C9C9;
-    -fx-border-width: 1;
+    /*-fx-border-color: #C9C9C9;*/
+    -fx-background-radius: 15 0 0 15;
+    /*-fx-border-width: 1;*/
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 18px;
 }
@@ -201,12 +223,38 @@
 .appText{
     -fx-background-color:#fff;
     -fx-text-fill: #4E4E4E;
-    -fx-border-color: #C9C9C9;
-    -fx-border-width: 1;
+/*    -fx-border-color: #C9C9C9;*/
+    -fx-background-radius: 0 15 15 0;
+    /*-fx-border-width: 1;*/
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 18px;
 }
 .appText:focused {
+    -fx-background-color: linear-gradient(#718A76, #fff);
+    /*    -fx-background-radius: 6.4, 4, 5, 3;
+        -fx-background-insets: 1.4, 0, 1, 2;*/
+}
+.alarms{
+    -fx-background-color:#FF2000;
+    -fx-text-fill: #4E4E4E;
+    -fx-border-color: #fff;
+    -fx-background-radius: 15 15 15 15;
+    -fx-border-width: 2;
+    -fx-border-radius: 15 15 15 15;
+    -fx-font-family:'URW DIN Arabic';
+    -fx-font-size: 18px;
+    -fx-text-fill: #fff;
+}
+.searchText{
+    -fx-background-color:#fff;
+    -fx-text-fill: #4E4E4E;
+/*    -fx-border-color: #C9C9C9;*/
+    -fx-background-radius: 15 15 15 15;
+    /*-fx-border-width: 1;*/
+    -fx-font-family:'URW DIN Arabic';
+    -fx-font-size: 18px;
+}
+.searchText:focused {
     -fx-background-color: linear-gradient(#718A76, #fff);
     /*    -fx-background-radius: 6.4, 4, 5, 3;
         -fx-background-insets: 1.4, 0, 1, 2;*/
@@ -225,14 +273,14 @@
 
 .titled-pane > .title 
 {
-    -fx-background-color: #4E4E4E;
+    -fx-background-color: #1E3606;
     -fx-background-radius: 0;
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 18px;
     -fx-text-fill: #FFFFFF;
     -fx-padding: 15;
     -fx-border-color: #FFFFFF;
-    -fx-border-width: 2;
+    -fx-border-width: 2 0 0 2;
 }
 .titled-pane > .title > .text
 {
@@ -356,4 +404,52 @@
     -fx-border-radius: 0 50 50 0 ;
     -fx-border-style: solid;
     -fx-effect: dropshadow(three-pass-box,#3C3B3B, 20, 0, 5, 5); 
+}
+.mainClass {
+    -fx-background-image: url(../images/logingbg.jpg);
+    -fx-background-position: left top, center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover, auto;
+}
+.loginData {
+    -fx-background-image: url(../images/loginBG2.png);
+    -fx-background-position: center, center;
+    -fx-background-repeat: no-repeat;
+}
+.loginButton {
+    -fx-font-family: "URW DIN Arabic";
+    -fx-font-size: 15px;
+    -fx-background-color: #1E3606;
+    -fx-background-radius: 50;
+    -fx-text-fill: #FFFFFF;
+    /*-fx-effect: dropshadow(three-pass-box,#3C3B3B, 20, 0, 5, 5);*/
+}
+.loginButton:hover{
+    -fx-background-color: #0CB200;
+    -fx-background-radius:50;
+}
+.loginButton:pressed{
+    -fx-background-color: #000;
+    -fx-background-radius: 50;
+}
+.loginButton:focus{
+    -fx-background-color: #718A76;
+    -fx-background-radius: 50;
+}
+.logintextInput{
+    -fx-font-family: "URW DIN Arabic";
+    -fx-font-size:15px;
+    -fx-text-fill: #121E29;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 50;
+    -fx-border-color: #000;
+    -fx-border-insets: 0;
+    -fx-border-width: 0 0 0 0;
+    -fx-border-style: solid;
+}
+.homeStyle {
+    -fx-background-image: url(../images/homeBg1.jpg);
+    -fx-background-position: left top, center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover, auto;
 }

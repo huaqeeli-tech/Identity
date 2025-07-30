@@ -262,6 +262,7 @@ public class SearchByMiltaryIdController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             Window stage = null;
             fileChooser.setInitialFileName(milatryId);
+            fileChooser.setInitialFileName( "بيان دورات" + milatryId );
             File file = fileChooser.showSaveDialog(stage);
             String savefile = null;
             if (file != null) {
@@ -277,11 +278,11 @@ public class SearchByMiltaryIdController implements Initializable {
             ExporteExcelSheet exporter = new ExporteExcelSheet();
             ArrayList<Object[]> dataList = exporter.getTableData(rs, feild);
             if (dataList != null && dataList.size() > 0) {
-                exporter.ceratHeader(personaltitel, 0, exporter.setHederStyle());
+                exporter.ceratHeader(personaltitel, 0, exporter.setTitelStyle(feild.length));
                 exporter.ceratHeader(personalfeild, 1, exporter.setContentStyle());
                 exporter.ceratHeader(titel, 2, exporter.setHederStyle());
                 exporter.ceratContent(dataList, feild, 3, exporter.setContentStyle());
-                exporter.writeFile(savefile);
+                exporter.writeFile(savefile,feild.length);
             } else {
                 FormValidation.showAlert(null, "There is no data available in the table to export", Alert.AlertType.ERROR);
             }
