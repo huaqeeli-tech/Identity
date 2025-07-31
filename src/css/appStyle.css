@@ -237,7 +237,7 @@
 .alarms{
     -fx-background-color:#FF2000;
     -fx-text-fill: #4E4E4E;
-    -fx-border-color: #fff;
+    -fx-border-color: #4E4E4E;
     -fx-background-radius: 15 15 15 15;
     -fx-border-width: 2;
     -fx-border-radius: 15 15 15 15;
