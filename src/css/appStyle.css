@@ -56,12 +56,12 @@
     -fx-background-radius: 0;
 }
 .headerlabel{
-    -fx-background-color: #4E4E4E;
-    -fx-background-radius: 0 15 15 0;
+   -fx-background-color: #4E4E4E;
+    /*-fx-background-radius: 15;*/
     -fx-font-family:'URW DIN Arabic';
-    -fx-font-size: 18px;
+    -fx-font-size: 15px;
     -fx-text-fill: #FFFFFF;
-
+    -fx-effect: dropshadow(three-pass-box,#000000, 10, 0, 5, 5); 
 }
 .identitilabel{
     -fx-font-family:'URW DIN Arabic';
@@ -103,11 +103,15 @@
 }
 
 .username{
-    -fx-background-color: #4E4E4E;
+    /*-fx-background-color: #4E4E4E;*/
     /*-fx-background-radius: 15;*/
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 15px;
     -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box,#000000, 10, 0, 5, 5); 
+}
+
+.shadowStyle{
     -fx-effect: dropshadow(three-pass-box,#000000, 10, 0, 5, 5); 
 }
 .logoutButton{
@@ -236,7 +240,7 @@
 }
 .alarms{
     -fx-background-color:#FF2000;
-    -fx-text-fill: #4E4E4E;
+    -fx-text-fill: #fff;
     -fx-border-color: #4E4E4E;
     -fx-background-radius: 15 15 15 15;
     -fx-border-width: 2;
