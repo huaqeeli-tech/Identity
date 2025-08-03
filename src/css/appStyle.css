@@ -111,6 +111,9 @@
     -fx-effect: dropshadow(three-pass-box,#000000, 10, 0, 5, 5); 
 }
 
+.background{
+    -fx-background-color: #4E4E4E;
+}
 .shadowStyle{
     -fx-effect: dropshadow(three-pass-box,#000000, 10, 0, 5, 5); 
 }
