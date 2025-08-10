@@ -172,7 +172,7 @@
                   <Insets />
                </HBox.margin>
             </VBox>
-            <VBox alignment="CENTER" style="-fx-border-color: #898989; -fx-border-width: 0 0 0 5;" styleClass="shadowStyle" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" style="-fx-border-color: #898989; -fx-border-width: 0 0 0 5;" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
                      <image>
@@ -183,6 +183,10 @@
                <HBox.margin>
                   <Insets right="2.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="shadowStyle" />
+                  <String fx:value="background" />
+               </styleClass>
             </VBox>
          </children>
       </HBox>

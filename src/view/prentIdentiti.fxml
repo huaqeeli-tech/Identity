@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,124 +16,130 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PrentIdentitiController">
    <children>
-      <VBox alignment="CENTER" layoutY="6.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="238.0" prefHeight="45.0" prefWidth="200.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="username" HBox.hgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" styleClass="actionButton" text="ابحث" />
-                  <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="600.0" styleClass="appText" />
-                  <ComboBox nodeOrientation="RIGHT_TO_LEFT" prefWidth="200.0" styleClass="appComboBox" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="170.0" prefWidth="200.0">
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="850.0">
+                  <HBox alignment="CENTER" prefHeight="170.0" prefWidth="200.0">
                      <children>
-                        <Pane prefHeight="165.0" prefWidth="140.0" style="-fx-background-color: #4E4E4E;">
+                        <HBox prefHeight="100.0" prefWidth="850.0">
                            <children>
-                              <ImageView fx:id="personalImage" fitHeight="160.0" fitWidth="130.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view-wrapper" />
+                              <Pane prefHeight="165.0" prefWidth="140.0" style="-fx-background-color: #4E4E4E;">
+                                 <children>
+                                    <ImageView fx:id="personalImage" fitHeight="160.0" fitWidth="130.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view-wrapper" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Pane>
                            </children>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Pane>
+                        </HBox>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الاسم" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرقم العسكري" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرتبة" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم الجوال" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="405.0" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم السجل المدني" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="508.0" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="الإفادات والقرارت العسكرية">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="toolBarButton" />
+                              <String fx:value="shadowStyle" />
+                           </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" text="المؤهلات العلمية">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="toolBarButton" />
+                              <String fx:value="shadowStyle" />
+                           </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" text="الدورات العسكرية">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="toolBarButton" />
+                              <String fx:value="shadowStyle" />
+                           </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" text="الترقيات">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="toolBarButton" />
+                              <String fx:value="shadowStyle" />
+                           </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" text="البيانات الشخصية والصور">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="toolBarButton" />
+                              <String fx:value="shadowStyle" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <StackPane fx:id="stackPane" maxWidth="-Infinity" prefWidth="850.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="3000.0">
+                           <content>
+                              <VBox fx:id="vbox" prefWidth="700.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </StackPane>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+            </VBox>
+            <VBox alignment="CENTER" style="-fx-border-color: #898989; -fx-border-width: 0 0 0 5;">
                <children>
-                  <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الاسم" />
+                  <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
+                     <image>
+                        <Image url="@../images/forceLogow.png" />
+                     </image>
+                  </ImageView>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرقم العسكري" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرتبة" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم الجوال" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="405.0" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم السجل المدني" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" styleClass="actionButton" text="حذف">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button layoutX="584.0" layoutY="20.0" mnemonicParsing="false" styleClass="actionButton" text="تعديل">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button layoutX="610.0" layoutY="20.0" mnemonicParsing="false" styleClass="actionButton" text="اضافة من ملف اكسل">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button layoutX="636.0" layoutY="20.0" mnemonicParsing="false" styleClass="actionButton" text="حفظ">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="508.0" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" styleClass="toolBarButton" text="الإفادات والقرارت العسكرية">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" styleClass="toolBarButton" text="المؤهلات العلمية">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" styleClass="toolBarButton" text="الدورات العسكرية">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" styleClass="toolBarButton" text="الترقيات">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" styleClass="toolBarButton" text="البيانات الشخصية والصور">
-                     <HBox.margin>
-                        <Insets right="2.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <StackPane fx:id="stackPane" maxWidth="-Infinity" prefWidth="850.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="3000.0">
-                     <content>
-                        <VBox fx:id="vbox" prefWidth="700.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </StackPane>
+               <styleClass>
+                  <String fx:value="shadowStyle" />
+                  <String fx:value="background" />
+               </styleClass>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </AnchorPane>
