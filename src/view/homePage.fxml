@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InternalIncomingPageController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomPageController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,92 +21,98 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="0.0" prefWidth="800.0" styleClass="headerlabel">
                      <children>
-                        <Button layoutX="229.0" layoutY="19.0" mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/setting.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="actionButton" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets right="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/add.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="actionButton" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets right="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button layoutX="243.0" layoutY="18.0" mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Excel.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="actionButton" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets right="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button layoutX="373.0" layoutY="18.0" mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/edit.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="actionButton" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets right="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button layoutX="375.0" layoutY="18.0" mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/delete.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="actionButton" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets right="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="300.0" styleClass="username" text="رئيس رقباء / حسين أحمد عقيلي">
+                        <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#userAccount">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/users1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="actionButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                                 <HBox.margin>
+                                    <Insets left="2.0" right="2.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#addData">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/addEmployee.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="actionButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                                 <HBox.margin>
+                                    <Insets right="2.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#addFromExcel">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Excel.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="actionButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                                 <HBox.margin>
+                                    <Insets right="2.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#editData">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="actionButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                                 <HBox.margin>
+                                    <Insets right="2.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#deleteData">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/delete.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="actionButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                                 <HBox.margin>
+                                    <Insets right="2.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="rankLable" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="70.0" styleClass="username" text="رئيس رقباء " />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="20.0" styleClass="username" text="/" />
+                        <Label fx:id="usernameLable" prefHeight="40.0" prefWidth="150.0" styleClass="username" text=" حسين أحمد عقيلي">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </Label>
-                        <ImageView fitHeight="54.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
+                        <ImageView fitHeight="54.0" fitWidth="63.0" onDragDetected="#openAlerts" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
                            <image>
                               <Image url="@../images/alarm.png" />
                            </image>
@@ -114,7 +120,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="32.0" styleClass="alarms" text="15">
+                        <Label alignment="CENTER" onDragDetected="#openAlerts" prefHeight="32.0" prefWidth="32.0" styleClass="alarms" text="0">
                            <HBox.margin>
                               <Insets left="-25.0" />
                            </HBox.margin>

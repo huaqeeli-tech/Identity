@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PrentIdentitiController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PrentIdentitiController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -38,37 +38,49 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <TextField fx:id="nameText" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
                         <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الاسم" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <TextField fx:id="militaryid" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
                         <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرقم العسكري" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <TextField fx:id="rank" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
                         <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرتبة" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <TextField fx:id="phonnamber" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
                         <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم الجوال" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="360.0" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="idNumber" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم السجل المدني" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="360.0" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="specialty" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="التخصص" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="405.0" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <TextField nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
-                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم السجل المدني" />
+                        <TextField fx:id="note" editable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الملاحظات" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="508.0" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" text="الإفادات والقرارت العسكرية">
+                        <Button mnemonicParsing="false" onAction="#openMilitaryDecisions" text="الإفادات والقرارت العسكرية">
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>
@@ -77,7 +89,7 @@
                               <String fx:value="shadowStyle" />
                            </styleClass>
                         </Button>
-                        <Button mnemonicParsing="false" text="المؤهلات العلمية">
+                        <Button mnemonicParsing="false" onAction="#openAcademicQualifications" text="المؤهلات العلمية">
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>
@@ -86,7 +98,7 @@
                               <String fx:value="shadowStyle" />
                            </styleClass>
                         </Button>
-                        <Button mnemonicParsing="false" text="الدورات العسكرية">
+                        <Button mnemonicParsing="false" onAction="#openMilitaryCourses" text="الدورات العسكرية">
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>
@@ -95,7 +107,7 @@
                               <String fx:value="shadowStyle" />
                            </styleClass>
                         </Button>
-                        <Button mnemonicParsing="false" text="الترقيات">
+                        <Button mnemonicParsing="false" onAction="#openPromations" text="الترقيات">
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>
@@ -104,7 +116,7 @@
                               <String fx:value="shadowStyle" />
                            </styleClass>
                         </Button>
-                        <Button mnemonicParsing="false" text="البيانات الشخصية والصور">
+                        <Button mnemonicParsing="false" onAction="#openPersonalData" text="البيانات الشخصية والصور">
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>

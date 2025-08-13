@@ -16,8 +16,6 @@ import javafx.stage.Stage;
 public class ChangePassowrdController implements Initializable {
 
     @FXML
-    private PasswordField oldPasowrd;
-    @FXML
     private PasswordField newPassword;
     @FXML
     private PasswordField reNewPassowrd;
