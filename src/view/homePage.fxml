@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,17 +14,33 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomPageController">
+<AnchorPane id="AnchorPane" fx:id="content" nodeOrientation="RIGHT_TO_LEFT" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.huaqeeli.identity.HomPageController">
    <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" style="-fx-border-color: #898989; -fx-border-width: 0 0 0 5;" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
+                     <image>
+                        <Image url="@../images/forceLogow.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets right="2.0" />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="shadowStyle" />
+                  <String fx:value="background" />
+               </styleClass>
+            </VBox>
             <VBox nodeOrientation="RIGHT_TO_LEFT">
                <children>
                   <HBox alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="0.0" prefWidth="800.0" styleClass="headerlabel">
                      <children>
                         <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#userAccount">
+                              <Button fx:id="addAccountButton" mnemonicParsing="false" onAction="#userAccount">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -38,8 +55,11 @@
                                  <HBox.margin>
                                     <Insets left="2.0" right="2.0" />
                                  </HBox.margin>
+                                 <tooltip>
+                                    <Tooltip text="اضافة حساب مستخدم" />
+                                 </tooltip>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#addData">
+                              <Button mnemonicParsing="false" onAction="#addIdentity">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -54,6 +74,9 @@
                                  <HBox.margin>
                                     <Insets right="2.0" />
                                  </HBox.margin>
+                                 <tooltip>
+                                    <Tooltip text="اضافة البيانات الشخصة" />
+                                 </tooltip>
                               </Button>
                               <Button mnemonicParsing="false" onAction="#addFromExcel">
                                  <graphic>
@@ -70,49 +93,32 @@
                                  <HBox.margin>
                                     <Insets right="2.0" />
                                  </HBox.margin>
+                                 <tooltip>
+                                    <Tooltip text="اضافة البيانات من ملف اكسل" />
+                                 </tooltip>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#editData">
+                              <Button mnemonicParsing="false" onAction="#loguot" styleClass="logoutButton">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/edit.png" />
+                                          <Image url="@../images/logout.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
-                                 <styleClass>
-                                    <String fx:value="actionButton" />
-                                    <String fx:value="shadowStyle" />
-                                 </styleClass>
-                                 <HBox.margin>
-                                    <Insets right="2.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#deleteData">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/delete.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="actionButton" />
-                                    <String fx:value="shadowStyle" />
-                                 </styleClass>
                                  <HBox.margin>
                                     <Insets right="2.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
                         </HBox>
-                        <Label fx:id="rankLable" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="70.0" styleClass="username" text="رئيس رقباء " />
+                        <Label fx:id="rankLable" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="90.0" styleClass="username" text="رئيس رقباء " />
                         <Label alignment="CENTER" prefHeight="40.0" prefWidth="20.0" styleClass="username" text="/" />
-                        <Label fx:id="usernameLable" prefHeight="40.0" prefWidth="150.0" styleClass="username" text=" حسين أحمد عقيلي">
+                        <Label fx:id="usernameLable" prefHeight="40.0" prefWidth="230.0" styleClass="username" text=" حسين أحمد عقيلي">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </Label>
-                        <ImageView fitHeight="54.0" fitWidth="63.0" onDragDetected="#openAlerts" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
+                        <ImageView fitHeight="54.0" fitWidth="63.0" onDragDetected="#handleNotificationClick" onMouseClicked="#handleNotificationClick" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
                            <image>
                               <Image url="@../images/alarm.png" />
                            </image>
@@ -120,7 +126,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <Label alignment="CENTER" onDragDetected="#openAlerts" prefHeight="32.0" prefWidth="32.0" styleClass="alarms" text="0">
+                        <Label fx:id="notificationCountLabel" alignment="CENTER" onDragDetected="#handleNotificationClick" prefHeight="32.0" prefWidth="32.0" styleClass="alarms" text="0" visible="false">
                            <HBox.margin>
                               <Insets left="-25.0" />
                            </HBox.margin>
@@ -177,22 +183,6 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" style="-fx-border-color: #898989; -fx-border-width: 0 0 0 5;" HBox.hgrow="ALWAYS">
-               <children>
-                  <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="shadowStyle">
-                     <image>
-                        <Image url="@../images/forceLogow.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <HBox.margin>
-                  <Insets right="2.0" />
-               </HBox.margin>
-               <styleClass>
-                  <String fx:value="shadowStyle" />
-                  <String fx:value="background" />
-               </styleClass>
             </VBox>
          </children>
       </HBox>

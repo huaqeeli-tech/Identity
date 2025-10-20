@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="188.0" prefWidth="1200.0" style="-fx-border-color: #4A4A4A; -fx-border-width: 0 0 5 0;" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ShowUsersItemController">
+   <children>
+      <HBox fx:id="content" alignment="CENTER" maxHeight="188.0" minHeight="188.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#cilck" prefHeight="188.0" prefWidth="1200.0" spacing="2.0" styleClass="itemPanl" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="squnce" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="40.0" prefWidth="40.0" styleClass="squnseLable" text="عدد" />
+            <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="136.0" prefWidth="162.0">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="الرقم العسكري:" VBox.vgrow="ALWAYS">
+                           <styleClass>
+                              <String fx:value="itemLableTitel" />
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="background" />
+                           </styleClass>
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin></Label>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="الرتبة:" VBox.vgrow="ALWAYS">
+                           <styleClass>
+                              <String fx:value="itemLableTitel" />
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="background" />
+                           </styleClass>
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin></Label>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="رقم الجوال :">
+                           <styleClass>
+                              <String fx:value="itemLableTitel" />
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="background" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="136.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="militaryID" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="itemLable" text="الرقم العسكري" />
+                        <Label fx:id="rank" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="140.0" styleClass="itemLable" text="الرتبة" />
+                        <Label fx:id="phonnumber" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="itemLable" text="رقم الجوال" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox layoutX="928.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="136.0" prefWidth="162.0">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="الاسم:" VBox.vgrow="ALWAYS">
+                           <styleClass>
+                              <String fx:value="itemLableTitel" />
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="background" />
+                           </styleClass>
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin></Label>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="رقم السجل:" VBox.vgrow="ALWAYS">
+                           <styleClass>
+                              <String fx:value="itemLableTitel" />
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="background" />
+                           </styleClass>
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="136.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="name" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="227.0" styleClass="itemLable" text="الاسم">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></Label>
+                        <Label fx:id="personalID" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="itemLable" text="رقم السجل المدني">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox layoutX="919.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="183.0" prefWidth="162.0">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="التخصص:" VBox.vgrow="ALWAYS">
+                           <styleClass>
+                              <String fx:value="itemLableTitel" />
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="background" />
+                           </styleClass>
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin></Label>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="ملاحظات:" VBox.vgrow="ALWAYS">
+                           <styleClass>
+                              <String fx:value="itemLableTitel" />
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="background" />
+                           </styleClass>
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="136.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="specializ" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="227.0" styleClass="itemLable" text="التخصص" />
+                        <Label fx:id="note" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="227.0" styleClass="itemLable" text="ملاحظات" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="30.0" styleClass="squnseLable">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showFile" prefHeight="30.0" prefWidth="30.0" styleClass="squnseLable">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/showFiles.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

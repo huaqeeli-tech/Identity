@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="50.0" prefWidth="1200.0" style="-fx-border-color: #4A4A4A; -fx-border-width: 0 0 5 0;" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DocumentFileItemController">
+   <children>
+      <HBox fx:id="content" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#cilck" prefHeight="40.0" prefWidth="1200.0" spacing="2.0" styleClass="itemPanl" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="squnce" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" styleClass="squnseLable" text="عدد" />
+            <Label fx:id="documentTopic" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #1E3606; -fx-border-width: 0 2 0 0;" styleClass="itemLable" text="مسمى الوثيقة" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#openPdfFile">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="squnseLable" />
+                        <String fx:value="shadowStyle" />
+                     </styleClass>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/pdf.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="عرض المستند" />
+                     </tooltip>
+                  </Button>
+                  <Button layoutX="429.0" layoutY="11.0" mnemonicParsing="false" onAction="#getDocumentFile">
+                     <styleClass>
+                        <String fx:value="squnseLable" />
+                        <String fx:value="shadowStyle" />
+                     </styleClass>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/getfile.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="تحميل المستند من الجهاز" />
+                     </tooltip>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#scanFile">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="squnseLable" />
+                        <String fx:value="shadowStyle" />
+                     </styleClass>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/scaner.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="المسح الضوئي للمستند" />
+                     </tooltip>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

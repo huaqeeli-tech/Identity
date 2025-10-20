@@ -1,5 +1,5 @@
 .toolBarButton{
-    -fx-background-color: #4E4E4E;
+    -fx-background-color: #0A4A0D;
     -fx-background-radius: 15 15 0 0;
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 18px;
@@ -117,13 +117,13 @@
 .shadowStyle{
     -fx-effect: dropshadow(three-pass-box,#000000, 10, 0, 5, 5); 
 }
+
 .logoutButton{
-    -fx-background-color: #4E4E4E;
-    -fx-background-radius: 0;
+     -fx-background-color: #FF3114;
+    -fx-background-radius: 15 15 15 15;
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 18px;
     -fx-text-fill: #FFFFFF;
-    -fx-effect: dropshadow(three-pass-box,#000000, 10, 0, 5, 5); 
 }
 .addname{
     -fx-background-color: #B6CD54;
@@ -459,4 +459,25 @@
     -fx-background-position: left top, center;
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover, auto;
+}
+.itemLableTitel {
+    -fx-font-family: "URW DIN Arabic";
+    -fx-font-size: 18px;
+    -fx-text-fill: #FFFFFF;
+/*    -fx-border-width: 0 2 2 2 ;
+    -fx-border-radius: 0 10 10 0 ;*/
+}
+.squnseLable {
+    -fx-font-family: "URW DIN Arabic";
+    -fx-font-size: 13px;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color:  #1E3606;
+    -fx-border-radius: 100 ;
+    -fx-background-radius: 100;
+}
+.itemLable {
+    -fx-font-family: "URW DIN Arabic";
+    -fx-font-size: 16px;
+    -fx-border-color: #DEE2DB;
+    -fx-border-width: 0 0 2 0 ;
 }

@@ -1,0 +1,66 @@
+/* تنسيق عام */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* تنسيق الجدول */
+.table-view {
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-font-weight: bold;
+    -fx-border-color: #dee2e6;
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: white;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+}
+
+/* تنسيق أزرار الترقيم */
+.page-button {
+    -fx-background-color: white;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 3px;
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+}
+
+.page-button:hover {
+    -fx-background-color: #e9ecef;
+}
+
+.page-button.active {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-color: #007bff;
+}
+
+/* تنسيق أزرار التنقل */
+.nav-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-min-width: 80px;
+    -fx-min-height: 35px;
+}
+
+.nav-button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.nav-button:disabled {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: #adb5bd;
+}

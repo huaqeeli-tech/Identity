@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" fx:id="content" prefHeight="500.0" prefWidth="900.0" style="-fx-border-color: #343434; -fx-border-width: 2;" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddIdentitiPageController">
+    <children>
+      <VBox layoutX="-4.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="40.0" prefWidth="200.0">
+               <children>
+                          <Button mnemonicParsing="false" onAction="#colose">
+                              <styleClass>
+                                  <String fx:value="logoutButton" />
+                                  <String fx:value="shadowStyle" />
+                              </styleClass>
+                              <graphic>
+                                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../images/close.png" />
+                                      </image>
+                                  </ImageView>
+                              </graphic>
+                              <HBox.margin>
+                                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              </HBox.margin>
+                          </Button>
+               </children>
+               <styleClass>
+                  <String fx:value="background" />
+                  <String fx:value="shadowStyle" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+              <HBox VBox.vgrow="ALWAYS">
+                  <children>
+                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="username" HBox.hgrow="ALWAYS">
+                          <children>
+                              <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <TextField fx:id="militaryid" nodeOrientation="RIGHT_TO_LEFT" onKeyReleased="#getIdentityData" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                                      <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرقم العسكري" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <TextField fx:id="nameText" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                                      <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الاسم" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <TextField fx:id="rank" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                                      <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الرتبة" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <TextField fx:id="phonnamber" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                                      <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم الجوال" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="360.0" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <TextField fx:id="idNumber" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                                      <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="رقم السجل المدني" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="360.0" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <TextField fx:id="specialty" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                                      <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="التخصص" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="405.0" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <TextField fx:id="note" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="650.0" styleClass="appText" />
+                                      <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="headerlabel" text="الملاحظات" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                                  <children>
+                                      <Button mnemonicParsing="false" onAction="#deleteidentiti">
+                                          <HBox.margin>
+                                              <Insets right="2.0" />
+                                          </HBox.margin>
+                                          <styleClass>
+                                              <String fx:value="actionButton" />
+                                              <String fx:value="shadowStyle" />
+                                          </styleClass>
+                                          <graphic>
+                                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                  <image>
+                                                      <Image url="@../images/delete.png" />
+                                                  </image>
+                                              </ImageView>
+                                          </graphic>
+                                 <tooltip>
+                                    <Tooltip text="حذف البيانات الحالية" />
+                                 </tooltip>
+                                      </Button>
+                                      <Button mnemonicParsing="false" onAction="#editidentiti">
+                                          <HBox.margin>
+                                              <Insets right="2.0" />
+                                          </HBox.margin>
+                                          <styleClass>
+                                              <String fx:value="actionButton" />
+                                              <String fx:value="shadowStyle" />
+                                          </styleClass>
+                                          <graphic>
+                                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                  <image>
+                                                      <Image url="@../images/edit.png" />
+                                                  </image>
+                                              </ImageView>
+                                          </graphic>
+                                 <tooltip>
+                                    <Tooltip contentDisplay="CENTER" text="تحديث البيانات" textAlignment="CENTER" />
+                                 </tooltip>
+                                      </Button>
+                              <Button layoutX="429.0" layoutY="11.0" mnemonicParsing="false" onAction="#addImage">
+                                 <styleClass>
+                                    <String fx:value="actionButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/addPersonalImage.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets right="2.0" />
+                                 </HBox.margin>
+                                 <tooltip>
+                                    <Tooltip text="اضافة الصورة العسكرية" />
+                                 </tooltip>
+                              </Button>
+                                      <Button mnemonicParsing="false" onAction="#addidentiti">
+                                          <HBox.margin>
+                                              <Insets right="2.0" />
+                                          </HBox.margin>
+                                          <styleClass>
+                                              <String fx:value="actionButton" />
+                                              <String fx:value="shadowStyle" />
+                                          </styleClass>
+                                          <graphic>
+                                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                  <image>
+                                                      <Image url="@../images/add.png" />
+                                                  </image>
+                                              </ImageView>
+                                          </graphic>
+                                 <tooltip>
+                                    <Tooltip text="حفظ البيانات" />
+                                 </tooltip>
+                                      </Button>
+                                  </children>
+                                  <VBox.margin>
+                                      <Insets top="10.0" />
+                                  </VBox.margin>
+                              </HBox>
+                          </children>
+                      </VBox>
+                  </children>
+              </HBox>
+         </children>
+      </VBox>
+    </children>
+   <styleClass>
+      <String fx:value="homeStyle" />
+      <String fx:value="shadowStyle" />
+   </styleClass>
+</AnchorPane>

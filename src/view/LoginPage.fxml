@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="content" nodeOrientation="RIGHT_TO_LEFT" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginPageController">
+<AnchorPane id="AnchorPane" fx:id="content" nodeOrientation="RIGHT_TO_LEFT" prefHeight="800.0" prefWidth="1200.0" styleClass="homeStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginPageController">
    <children>
       <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -28,100 +28,92 @@
                   <String fx:value="background" />
                </styleClass>
             </VBox>
-            <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="637.0" styleClass="loginData" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER" styleClass="loginData" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">
+                  <VBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="637.0">
                      <children>
-                        <TextField fx:id="userName" alignment="CENTER" maxWidth="1.7976931348623157E308" onAction="#login" prefHeight="60.0" prefWidth="400.0" promptText="اسم المستخدم">
-                           <HBox.margin>
-                              <Insets bottom="5.0" />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="logintextInput" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                        </TextField>
-                        <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Username.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="-50.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="22.0" layoutY="552.0" prefHeight="60.0" prefWidth="400.0">
-                     <children>
-                        <PasswordField fx:id="password" alignment="CENTER" onAction="#login" prefHeight="60.0" prefWidth="400.0" promptText="كلمة المرور">
-                           <HBox.margin>
+                        <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="60.0" prefWidth="400.0">
+                           <children>
+                              <TextField fx:id="userName" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" onAction="#login" prefHeight="60.0" prefWidth="400.0" promptText="اسم المستخدم">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="logintextInput" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                              </TextField>
+                              <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Username.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="-50.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                           <VBox.margin>
                               <Insets />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="logintextInput" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                        </PasswordField>
-                        <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Password.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="-50.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="20.0" layoutY="380.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="400.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <children>
-                        <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#changePassword" prefHeight="60.0" prefWidth="200.0" text="تغيير كلمة المرور">
-                           <HBox.margin>
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="22.0" layoutY="552.0" prefHeight="60.0" prefWidth="400.0">
+                           <children>
+                              <PasswordField fx:id="password" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" onAction="#login" prefHeight="60.0" prefWidth="400.0" promptText="كلمة المرور">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="logintextInput" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                              </PasswordField>
+                              <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Password.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="-50.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="20.0" layoutY="380.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="400.0">
+                           <VBox.margin>
                               <Insets />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="loginButton" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="200.0" text="دخول">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="loginButton" />
-                              <String fx:value="shadowStyle" />
-                           </styleClass>
-                        </Button>
-                        <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets left="-50.0" />
-                           </HBox.margin>
-                        </ImageView>
+                           </VBox.margin>
+                           <children>
+                              <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#changePassword" prefHeight="60.0" prefWidth="200.0" text="تغيير كلمة المرور">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="loginButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                              </Button>
+                              <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="200.0" text="دخول">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="loginButton" />
+                                    <String fx:value="shadowStyle" />
+                                 </styleClass>
+                              </Button>
+                              <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="-50.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="439.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="400.0">
-                     <children>
-                        <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets left="-50.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                  </HBox>
+                  </VBox>
                </children>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
+            </HBox>
          </children>
       </HBox>
    </children>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" minHeight="450.0" prefWidth="1200.0" styleClass="shadowStyle" stylesheets="@../css/appStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PersonalimagesPageController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="username" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#clear">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/refreach.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="squnseLable" />
+                           </styleClass>
+                           <tooltip>
+                              <Tooltip text="مسح الحقول" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#delete">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/delete.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="squnseLable" />
+                           </styleClass>
+                           <tooltip>
+                              <Tooltip text="حذف البيانات" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#editDocument">
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="squnseLable" />
+                           </styleClass>
+                           <tooltip>
+                              <Tooltip text="تعديل البيانات" />
+                           </tooltip>
+                        </Button>
+                        <Button layoutX="130.0" layoutY="19.0" mnemonicParsing="false" onAction="#addDocument">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="shadowStyle" />
+                              <String fx:value="squnseLable" />
+                           </styleClass>
+                           <tooltip>
+                              <Tooltip text="حفظ البيانات" />
+                           </tooltip>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <DatePicker fx:id="expraronDate" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" styleClass="appText" HBox.hgrow="ALWAYS" />
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" styleClass="headerlabel" text="تاريخ الانتهاء" />
+                  <ComboBox fx:id="documentType" nodeOrientation="RIGHT_TO_LEFT" prefWidth="150.0" styleClass="appText" />
+                  <Label alignment="CENTER" layoutX="438.0" layoutY="13.0" prefHeight="40.0" prefWidth="150.0" styleClass="headerlabel" text="نوع الوثيقة:" />
+                  <TextField fx:id="documentName" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" HBox.hgrow="ALWAYS">
+                     <styleClass>
+                        <String fx:value="appText" />
+                        <String fx:value="shadowStyle" />
+                     </styleClass>
+                  </TextField>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" styleClass="headerlabel" text="مسمى الوثيقة:" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="1200.0" spacing="2.0" styleClass="itemPanl">
+               <children>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" styleClass="squnseLable" text="عدد" />
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="headerlabel" text="مسمى الوثيقة" HBox.hgrow="ALWAYS" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="531.0" layoutY="10.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="150.0" styleClass="headerlabel" text="نوع الوثيقة" HBox.hgrow="ALWAYS" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="556.0" layoutY="18.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="150.0" styleClass="headerlabel" text="تاريخ الانتهاء" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="150.0" styleClass="headerlabel" text="الصور" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <StackPane maxWidth="-Infinity" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="3000.0">
+                     <content>
+                        <VBox fx:id="vbox" prefWidth="700.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

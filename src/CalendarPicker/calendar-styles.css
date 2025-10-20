@@ -1,0 +1,113 @@
+/* تنسيقات أساسية للعنصر الرئيسي */
+.calendar-container {
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* تنسيق صندوق الاختيار */
+.combo-box {
+    -fx-pref-width: 220;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", "Tahoma", "Arial Arabic", "Times New Roman";
+    -fx-background-color: white;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 8 12;
+    -fx-font-family: "Segoe UI", "Tahoma", "Arial Arabic";
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #007bff;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
+}
+
+/* تخصيص منتقي التاريخ */
+.date-picker {
+    -fx-pref-width: 250;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", "Tahoma", "Arial Arabic";
+}
+
+.date-picker .text-field {
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", "Tahoma", "Arial Arabic";
+    -fx-padding: 8;
+    -fx-text-fill: #333;
+}
+
+.date-picker .button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.date-picker .button:hover {
+    -fx-background-color: #0056b3;
+}
+
+/* تخصيص نافذة التقويم المنبثقة */
+.date-picker-popup {
+    -fx-font-family: "Segoe UI", "Tahoma", "Arial Arabic";
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .month-year-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .previous-month-button,
+.date-picker-popup .next-month-button {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .calendar-grid .day-cell {
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-width: 0.5;
+    -fx-border-color: #e9ecef;
+    -fx-background-color: white;
+}
+
+.date-picker-popup .calendar-grid .today {
+    -fx-background-color: #fff3cd;
+    -fx-border-color: #ffc107;
+    -fx-text-fill: #856404;
+}
+
+.date-picker-popup .calendar-grid .selected {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+}
+
+/* تنسيق التسمية المعروضة */
+.label {
+    -fx-font-family: "Segoe UI", "Tahoma", "Arial Arabic";
+    -fx-text-fill: #333333;
+}

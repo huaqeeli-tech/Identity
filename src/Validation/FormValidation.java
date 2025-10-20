@@ -40,6 +40,24 @@ public class FormValidation {
         return state;
     }
 
+    public static boolean cellNotNull(String cellName, String validationmassage) {
+        boolean state = true;
+        if (cellName == null) {
+            state = false;
+            showAlert("تحقق", validationmassage);
+        }
+
+        return state;
+    }
+    public static boolean ifCellNull(String cellName) {
+        boolean state = true;
+        if (cellName == null) {
+            state = false;
+        }
+
+        return state;
+    }
+
     public static boolean logintextFieldNotEmpty(TextField t, String validationmassage) {
         boolean state = true;
         if (!textFieldNotEmpty(t)) {
@@ -209,7 +227,7 @@ public class FormValidation {
         }
         return state;
     }
-    
+
     public static boolean ifNotexisting(String tapleName, String fildName, String condition) {
         boolean state = true;
         try {

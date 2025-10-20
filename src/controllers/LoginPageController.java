@@ -1,7 +1,7 @@
 package controllers;
 
 import Validation.FormValidation;
-import com.huaqeeli.training.HomePageController;
+import com.huaqeeli.identity.HomPageController;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -26,7 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import trainingdata.App;
+import identity.App;
 
 public class LoginPageController implements Initializable {
 
@@ -36,7 +36,7 @@ public class LoginPageController implements Initializable {
     private PasswordField password;
     @FXML
     private AnchorPane content;
-    HomePageController controller = new HomePageController();
+    HomPageController controller = new HomPageController();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +75,7 @@ public class LoginPageController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/homePage.fxml"));
             myPane = loader.load();
             
-            controller = (HomePageController) loader.getController();
+            controller = (HomPageController) loader.getController();
             controller.setData(userName, rank, userType,userid);
             Scene scene = new Scene(myPane);
             Screen screen = Screen.getPrimary();
