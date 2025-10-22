@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.time.LocalDate;
@@ -9,19 +8,22 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Notification {
+
     private final StringProperty documentName;
+    private final StringProperty militaryid;
     private final StringProperty personName;
     private final StringProperty expirationDateStr;
     private final IntegerProperty daysRemaining;
 
-    public Notification(String documentName, String personName, LocalDate expirationDate) {
+    public Notification(String militaryid, String personName, String documentName, LocalDate expirationDate) {
         this.documentName = new SimpleStringProperty(documentName);
         this.personName = new SimpleStringProperty(personName);
-        
+        this.militaryid = new SimpleStringProperty(militaryid);
+
         // تحويل التاريخ إلى String للعرض
         if (expirationDate != null) {
             this.expirationDateStr = new SimpleStringProperty(expirationDate.toString());
-            
+
             // حساب الأيام المتبقية بطريقة أبسط
             Period period = Period.between(LocalDate.now(), expirationDate);
             int totalDays = period.getYears() * 365 + period.getMonths() * 30 + period.getDays();
@@ -33,14 +35,42 @@ public class Notification {
     }
 
     // Getters
-    public String getDocumentName() { return documentName.get(); }
-    public String getPersonName() { return personName.get(); }
-    public String getExpirationDateStr() { return expirationDateStr.get(); }
-    public int getDaysRemaining() { return daysRemaining.get(); }
-    
+    public String getDocumentName() {
+        return documentName.get();
+    }
+
+    public String getPersonName() {
+        return personName.get();
+    }
+
+    public String getExpirationDateStr() {
+        return expirationDateStr.get();
+    }
+
+    public int getDaysRemaining() {
+        return daysRemaining.get();
+    }
+    public String getMilitaryid() {
+        return militaryid.get();
+    }
+
     // Properties
-    public StringProperty documentNameProperty() { return documentName; }
-    public StringProperty personNameProperty() { return personName; }
-    public StringProperty expirationDateStrProperty() { return expirationDateStr; }
-    public IntegerProperty daysRemainingProperty() { return daysRemaining; }
+    public StringProperty documentNameProperty() {
+        return documentName;
+    }
+    public StringProperty militaryIdProperty() {
+        return militaryid;
+    }
+
+    public StringProperty personNameProperty() {
+        return personName;
+    }
+
+    public StringProperty expirationDateStrProperty() {
+        return expirationDateStr;
+    }
+
+    public IntegerProperty daysRemainingProperty() {
+        return daysRemaining;
+    }
 }

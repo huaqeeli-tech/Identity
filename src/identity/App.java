@@ -102,6 +102,7 @@ public class App extends Application {
             controller.setData(militariid, name, idNumber, rank, phonaNumber, specialty, note);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
             Screen screen = Screen.getPrimary();
             Rectangle2D bounds = screen.getVisualBounds();
             stage.setX(bounds.getMinX());
@@ -111,7 +112,6 @@ public class App extends Application {
             stage.setScene(scene);
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.showAndWait();
-
         } catch (IOException ex) {
             FormValidation.showAlert(null, ex.toString(), Alert.AlertType.ERROR);
         }

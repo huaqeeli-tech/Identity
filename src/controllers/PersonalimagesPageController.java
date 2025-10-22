@@ -32,7 +32,7 @@ public class PersonalimagesPageController implements Initializable {
     private VBox vbox;
     String militariid;
     ObservableList<PersonalImagesModel> PersonalImagesModelObject = FXCollections.observableArrayList();
-    ObservableList<String> documentTypelist = FXCollections.observableArrayList("جواز ", "تأشيرة", "هوية ", "صورة ", "اخرى");
+    ObservableList<String> documentTypelist = FXCollections.observableArrayList("جواز", "تأشيرة", "هوية", "صورة", "اخرى");
     PeronalImageItemListener mylistener;
     PersonalImagesModel personalImagesModel;
     String id;

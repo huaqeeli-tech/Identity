@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="40.0" prefWidth="600.0" stylesheets="@../css/appStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controllers.NotificationItemController">
+   <children>
+      <HBox fx:id="content" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" minHeight="40.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#cilck" prefHeight="40.0" prefWidth="1200.0" spacing="2.0" style="-fx-border-color: #1E3606;" styleClass="itemPanl" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="militaryidText" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" style="-fx-border-color: #1E3606; -fx-border-width: 0 2 0 0;" styleClass="itemLable" text="الرقم العسكري" />
+            <Label fx:id="nameText" alignment="CENTER" contentDisplay="CENTER" layoutX="531.0" layoutY="13.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #1E3606; -fx-border-width: 0 2 0 0;" styleClass="itemLable" text="الاسم" HBox.hgrow="ALWAYS" />
+            <Label fx:id="documentNameText" alignment="CENTER" contentDisplay="CENTER" layoutX="556.0" layoutY="18.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #1E3606; -fx-border-width: 0 2 0 0;" styleClass="itemLable" text="مسمى الوثيقة" HBox.hgrow="ALWAYS" />
+            <Label fx:id="expirationDateText" alignment="CENTER" contentDisplay="CENTER" layoutX="826.0" layoutY="10.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="100.0" styleClass="itemLable" text="تاريخ الانتهاء" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

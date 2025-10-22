@@ -8,6 +8,7 @@ import controllers.Notification;
 import controllers.NotificationController;
 import controllers.NotificationService;
 import controllers.ShowUsersItemController;
+import controllers.notificationPageController;
 import identity.App;
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +38,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import modeles.ShowUsersModel;
 
@@ -218,44 +220,20 @@ public class HomPageController implements Initializable {
     }
 
     @FXML
-    private void handleNotificationClick(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/notification-window.fxml"));
-            Parent root = loader.load();
-
-            NotificationController controller = loader.getController();
-            controller.setNotifications(notifications);
-
-            Stage stage = new Stage();
-            stage.setTitle("الإشعارات - الوثائق المنتهية قريباً");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.showAndWait();
-
-            // إعادة تحميل الإشعارات بعد إغلاق النافذة
-            loadNotifications();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     private void handleNotificationClick(MouseEvent event) {
         try {
-            notificationService = new NotificationService();
-            setupNotificationSystem();
             loadNotifications();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/notification-window.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/notificationPage.fxml"));
             Parent root = loader.load();
-
-            NotificationController controller = loader.getController();
+            notificationPageController controller = loader.getController();
             controller.setNotifications(notifications);
 
             Stage stage = new Stage();
-            stage.setTitle("الإشعارات - الوثائق المنتهية قريباً");
+            stage.setX(10);
+            stage.setY(95);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.showAndWait();
 
             // إعادة تحميل الإشعارات بعد إغلاق النافذة

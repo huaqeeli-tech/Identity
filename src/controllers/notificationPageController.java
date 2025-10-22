@@ -10,19 +10,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class NotificationController implements Initializable {
+public class notificationPageController implements Initializable {
 
-    private NotificationService notificationService;
-    private ObservableList<Notification> notifications;
     @FXML
     private VBox vbox;
+    private ObservableList<Notification> notifications;
+    @FXML
+    private HBox content;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     public void setNotifications(ObservableList<Notification> notifications) {
@@ -41,15 +45,14 @@ public class NotificationController implements Initializable {
         }
     }
 
-    private void handleClose() {
-    }
-
-    private void handleRefresh() {
-        // يمكنك إضافة منطق التحديث هنا إذا needed
-       
+    @FXML
+    private void colose(ActionEvent event) {
+        Stage stage = (Stage) vbox.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
-    private void colose(ActionEvent event) {
+    private void cilck(MouseEvent event) {
     }
+
 }
